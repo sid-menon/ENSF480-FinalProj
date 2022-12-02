@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant App
+participant RegisterUser
+participant database
+
+App->App++
+    App->database++:get registered emails
+    database-->App--:return the emails
+
+App-->RegisterUser--:Sent the movie news through email
+
+
+
+
+@enduml

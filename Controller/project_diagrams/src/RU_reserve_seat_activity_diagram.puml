@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:receive movie news;
+:view all the available seats;
+:select from the available seats;
+:make payment;
+fork
+    :receive ticket;
+fork again
+    :receive receipt;
+end fork
+
+
+stop
+
+@enduml
