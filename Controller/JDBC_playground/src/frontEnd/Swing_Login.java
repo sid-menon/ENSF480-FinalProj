@@ -6,16 +6,15 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HelloDemo extends JFrame{
+public class Swing_Login extends JFrame{
     private JPanel panelMain;
     private JTextField userEmail;
     private JButton signInButton;
     private JPasswordField userPassword;
+    private JButton signUpButton;
 
 
-
-
-    public HelloDemo(AppController controller) {
+    public Swing_Login(AppController controller) {
 
         signInButton.addActionListener(new ActionListener() {
             @Override
@@ -29,7 +28,7 @@ public class HelloDemo extends JFrame{
 
     public static void main(String[] args) {
         AppController controller=new AppController();
-        HelloDemo helloDemo=new HelloDemo(controller);
+        Swing_Login helloDemo=new Swing_Login(controller);
         helloDemo.setContentPane(helloDemo.panelMain);
         helloDemo.setTitle("Hello world");
         helloDemo.setSize(300,300);

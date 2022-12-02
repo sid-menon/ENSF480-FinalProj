@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class JDBC {
 
@@ -95,8 +96,10 @@ public class JDBC {
 
     }
 
-    public void allMovies(){
+    public ArrayList<MovieInfo> allMovies(){
         String allMovieStr="SELECT * FROM movies";
+        ArrayList<MovieInfo> movies=new ArrayList<>();
+
         try{
             Statement allMovStatement=connection.createStatement();
             ResultSet resultSet=allMovStatement.executeQuery(allMovieStr);
@@ -104,13 +107,18 @@ public class JDBC {
             while (resultSet.next()){
                 int id=resultSet.getInt("id");
                 String name=resultSet.getString("name");
-                System.out.println(id+". "+name);
+
+                Timestamp date=resultSet.getTimestamp("announce_date");
+                System.out.println(id+". "+name+", "+date.toString());
+                movies.add(new MovieInfo(name,date));
+
             }
             resultSet.close();
 
         }catch (SQLException e){
             e.printStackTrace();
         }
+        return movies;
 
     }
 

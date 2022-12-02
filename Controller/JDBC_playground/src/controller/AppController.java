@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AppController {
@@ -42,8 +43,8 @@ public class AppController {
 
      }
 
-     public void allMovies(){
-          connection.allMovies();
+     public ArrayList<MovieInfo> allMovies(){
+          return connection.allMovies();
      }
      public void searchMov(){
 

@@ -21,7 +21,8 @@ VALUES ('fbcharles747@gmail.com','mypassword','1111-1111-1111-1111','admin');
 DROP TABLE IF EXISTS movies;
 CREATE TABLE movies(
     id INT AUTO_INCREMENT primary KEY,
-    name VARCHAR(250)
+    name VARCHAR(250),
+    announce_date TIMESTAMP DEFAULT NOW()
 );
 
 -- some sameple movie data
