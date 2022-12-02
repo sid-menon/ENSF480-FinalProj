@@ -23,6 +23,9 @@ public class UserPage extends JFrame implements ActionListener {
         setDefaultCloseOperation(javax.swing.
                 WindowConstants.DISPOSE_ON_CLOSE);
         setSize(700, 700);
+
+
+
         setVisible(true);
     }
 

@@ -40,7 +40,7 @@ public class JDBC {
                 String temp_payInfo = result.getString("paymentInfo");
                 String userType=result.getString("userType");
 
-                System.out.println(temp_email+", "+temp_password+", "+temp_payInfo+", "+userType);
+
                 if (userType.compareTo("admin")==0) {
                     user = new AdminUser(temp_email, temp_password, temp_payInfo);
                 } else {
