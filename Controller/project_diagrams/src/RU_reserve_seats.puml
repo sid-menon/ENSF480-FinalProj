@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant RegisteredUser
+participant Seats
+database database
+
+RegisteredUser->Seats++: View all available seats
+    Seats->database++:get all available seats
+    database-->Seats--: all available seats
+Seats-->RegisteredUser--: display all available seats
+
+RegisteredUser->Seats++: reserve from the available seats
+    Seats->database++: reserve the seats
+    database-->Seats--
+Seats-->RegisteredUser--:reserve successful
+@enduml
