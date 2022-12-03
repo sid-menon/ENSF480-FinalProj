@@ -2,13 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.*;
 
 class MoviesPage extends JFrame implements ActionListener //list of movies from user to choose from 
 { 
     JLabel movieLabel; 
     final JTextField textField1;
-    JButton b1;  
-
+    JButton b1;
+    static JList movieList;
+    
+        
+    
     MoviesPage()  
     {  
         JFrame frame = new JFrame("Select Movies");
@@ -41,14 +45,23 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
 
         movieLabel = new JLabel();  
         movieLabel.setText("Which Movie Would you like to See?");      //set label value for textField1
+
+        String movies[] ={"movie1", "movie2"}; //placeholder --use values from database
+        movieList = new JList<>(movies);
+        
+        movieList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+
           
           
         textField1 = new JTextField(15);
 
-        b1 = new JButton("Login");
-        frame.add(movieLabel, BorderLayout.CENTER);
-        frame.add(textField1, BorderLayout.CENTER);
-        frame.add(b1, BorderLayout.CENTER);
+        b1 = new JButton("Submit");
+        textField1.setLocation(300,225);
+        frame.add(movieLabel);
+        frame.add(textField1);
+        frame.add(movieList);
+        frame.add(b1);
+        b1.addActionListener(this);     
     }  
 
     public void actionPerformed(ActionEvent ae)    
@@ -57,18 +70,18 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
           
         if (userValue.length() < 30) {  //check if in database ---- this is a placeholder
               
-            //MoviesPage page = new MoviesPage();  
+            TheaterPage page = new TheaterPage();  
               
-            //page.setVisible(true);  
+            page.setVisible(true);  
               
             //create a welcome label and set it to the new page  
-            //JLabel wel_label = new JLabel("Select From Available movies");  
-            //page.getContentPane().add(wel_label);  
+            JLabel wel_label = new JLabel("Select From Available Theaters");  
+            page.getContentPane().add(wel_label);  
             System.out.println("movie selected");
         }  
         else{  
             //show error message  
-            JOptionPane.showMessageDialog(new JFrame(), "please enter valid username and password", "INVALID USERNAME/PASSWORD", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "please enter an available movie", "MOVIE NOT FOUND", JOptionPane.ERROR_MESSAGE);
         }  
     } 
 }
