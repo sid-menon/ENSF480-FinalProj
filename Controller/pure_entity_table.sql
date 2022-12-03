@@ -22,13 +22,14 @@ DROP TABLE IF EXISTS movies;
 CREATE TABLE movies(
     id INT AUTO_INCREMENT primary KEY,
     name VARCHAR(250),
-    announce_date TIMESTAMP DEFAULT NOW()
+    announce_date TIMESTAMP DEFAULT NOW(),
+    duration Time
 );
 
 -- some sameple movie data
-INSERT INTO movies(name)
-VALUES("Don't look up"),
-("Molly's game");
+INSERT INTO movies(name,duration)
+VALUES("Don't look up",'1:25:0'),
+("Molly's game",'2:20');
 
 
 -- theater table

@@ -1,17 +1,24 @@
 
+DROP TABLE IF EXISTS rooms;
+CREATE TABLE rooms(
+    id INT AUTO_INCREMENT primary key,
+    theater_id INT,
+    room_Number INT,
+    next_Available_Time TIMESTAMP DEFAULT NOW(),
+    FOREIGN key(theater_id) REFERENCES theater(id)
+    ON DELETE CASCADE
 
+);
 
 DROP TABLE IF EXISTS seats;
 
 CREATE TABLE seats(
-    theater_id INT NOT NULL,
+    room_id INT NOT NULL,
     rowChar CHAR(1),
     col INT,
-    roomNo INT,
     occupied BOOLEAN DEFAULT false,
-    FOREIGN KEY(theater_id) REFERENCES theater(id)
+    FOREIGN KEY(room_id) REFERENCES rooms(id)
     ON DELETE CASCADE
-    
 );
 
 
@@ -32,10 +39,14 @@ CREATE TABLE reservations(
 DROP TABLE IF EXISTS shows;
 CREATE TABLE shows(
     mov_id INT,
-    the_id INT,
-    show_time TIMESTAMP,
+    theater_id INT,
+    room_id INT,
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
     FOREIGN KEY(mov_id) REFERENCES movies(id),
-    FOREIGN KEY(the_id) REFERENCES theater(id)
+    FOREIGN KEY(theater_id) REFERENCES theater(id),
+    FOREIGN KEY(room_id) REFERENCES rooms(id),
+    primary key(mov_id,theater_id,start_time,end_time)
 );
 
 /*
