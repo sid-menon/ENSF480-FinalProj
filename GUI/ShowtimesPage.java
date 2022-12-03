@@ -4,25 +4,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.*;
 
-class MoviesPage extends JFrame implements ActionListener //list of movies from user to choose from 
+class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes from user to choose from 
 { 
-    JLabel movieLabel; 
+    JLabel ShowtimesLabel; 
     final JTextField textField1;
     JButton b1;
-    static JList movieList;
+    static JList ShowtimesList;
     
         
     
-    MoviesPage()  
+    ShowtimesPage()  
     {  
-        JFrame frame = new JFrame("Select Movies");
+        JFrame frame = new JFrame("Select Showtimes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
         frame.setPreferredSize(new Dimension(800,600));
         frame.setMinimumSize(new Dimension(600,450));
 
         Box titleText = Box.createHorizontalBox();
-        JLabel title = new JLabel("<html><span style='color: black;'>Movie Availables</span></html>");
+        JLabel title = new JLabel("<html><span style='color: black;'>Showtimes Availables</span></html>");
         title.setFont (title.getFont().deriveFont(32.0f));
         //JLabel version = new JLabel("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1.0<br>Created by Luke Carr</html>");
         //JLabel slogan = new JLabel("<html>Full Potential<br>Minimal Knowledge</html>");
@@ -43,13 +43,13 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        movieLabel = new JLabel();  
-        movieLabel.setText("Which Movie Would you like to See?");      //set label value for textField1
+        ShowtimesLabel = new JLabel();  
+        ShowtimesLabel.setText("Which Showtimes Would you like to See?");      //set label value for textField1
 
-        String movies[] ={"movie1", "movie2"}; //placeholder --use values from database
-        movieList = new JList<>(movies);
+        String Showtimes[] ={"7:00pm", "7:00pm"}; //placeholder --use values from database
+        ShowtimesList = new JList<>(Showtimes);
         
-        movieList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        ShowtimesList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
           
           
@@ -57,9 +57,9 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
 
         b1 = new JButton("Submit");
         textField1.setLocation(300,225);
-        frame.add(movieLabel);
+        frame.add(ShowtimesLabel);
         frame.add(textField1);
-        frame.add(movieList);
+        frame.add(ShowtimesList);
         frame.add(b1);
         b1.addActionListener(this);     
     }  
@@ -70,18 +70,19 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
           
         if (userValue.length() < 30) {  //check if in database ---- this is a placeholder
               
-            TheaterPage page = new TheaterPage();  
+            SeatsPage page = new SeatsPage();  
               
             page.setVisible(true);  
               
             //create a welcome label and set it to the new page  
-            JLabel wel_label = new JLabel("Select From Available Theaters");  
+            JLabel wel_label = new JLabel("Select From Available Seats");  
             page.getContentPane().add(wel_label);  
-            System.out.println("movie selected");
+            System.out.println("Seats selected");
+            //get rid of available seats from database
         }  
         else{  
             //show error message  
-            JOptionPane.showMessageDialog(new JFrame(), "please enter an available movie", "MOVIE NOT FOUND", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "please enter valid username and password", "INVALID USERNAME/PASSWORD", JOptionPane.ERROR_MESSAGE);
         }  
     } 
 }
