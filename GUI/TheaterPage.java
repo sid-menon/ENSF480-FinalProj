@@ -70,14 +70,14 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
           
         if (userValue.length() < 30) {  //check if in database ---- this is a placeholder
               
-            //TheaterPage page = new TheaterPage();  
+            ShowtimesPage page = new ShowtimesPage();  
               
-            //page.setVisible(true);  
+            page.setVisible(true);  
               
             //create a welcome label and set it to the new page  
-            //JLabel wel_label = new JLabel("Select From Available Theater");  
-            //page.getContentPane().add(wel_label);  
-            System.out.println("theater selected");
+            JLabel wel_label = new JLabel("Select From Available shwotimes");  
+            page.getContentPane().add(wel_label);  
+            System.out.println("showtimes selected");
         }  
         else{  
             //show error message  
