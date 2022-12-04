@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.border.EmptyBorder;
  
 public class RegistrationPage extends JFrame implements ActionListener {
 
@@ -10,6 +9,7 @@ public class RegistrationPage extends JFrame implements ActionListener {
     JPanel newPanel;  
     JLabel nameLabel, cardLabel;  
     final JTextField  textField1, textField2;  
+    JFrame frame = new JFrame("Register as User");
  
  
     RegistrationPage()  
@@ -18,30 +18,13 @@ public class RegistrationPage extends JFrame implements ActionListener {
 
 
 
-        JFrame frame = new JFrame("Make Payment");
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
         frame.setPreferredSize(new Dimension(800,600));
         frame.setMinimumSize(new Dimension(600,450));
 
-        Box titleText = Box.createHorizontalBox();
-        //JLabel title = new JLabel("<html><span style='color: black;'>Showtimes Availables</span></html>");
-        //title.setFont (title.getFont().deriveFont(32.0f));
-        //JLabel version = new JLabel("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1.0<br>Created by Luke Carr</html>");
-        //JLabel slogan = new JLabel("<html>Full Potential<br>Minimal Knowledge</html>");
-        //titleText.add(version);
-        //titleText.add(title);
-        //titleText.add(slogan);
-        titleText.setAlignmentX(frame.getWidth() / 2);
-
-        //Box inputContent = Box.createHorizontalBox();
-        //JTextArea code = new JTextArea(35,65);
-        //code.setEditable(true);
-        //code.setBorder(null);
-        //inputContent.add(code);
-
-        frame.add(titleText);
-        //frame.add(inputContent);
+        
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -81,6 +64,7 @@ public class RegistrationPage extends JFrame implements ActionListener {
 
             //add new Registered user to the data base 
             System.out.println("account created"); 
+            frame.dispose();
         }  
         else{  
             //show error message  

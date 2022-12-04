@@ -8,12 +8,13 @@ class CancelTicketPage extends JFrame implements ActionListener //list of Seats 
     JLabel SeatsLabel; 
     final JTextField textField1;
     JButton b1;
+    JFrame frame = new JFrame("Cancel Ticket");
     
         
     
     CancelTicketPage()  
     {  
-        JFrame frame = new JFrame("Cancel Ticket");
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
         frame.setPreferredSize(new Dimension(800,600));
@@ -72,6 +73,7 @@ class CancelTicketPage extends JFrame implements ActionListener //list of Seats 
             JLabel wel_label = new JLabel("Payment");  
             page.getContentPane().add(wel_label);  
             System.out.println("Seat Cancelled");
+            frame.dispose();
         }  
         else{  
             //show error message  
