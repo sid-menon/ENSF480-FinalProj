@@ -1,8 +1,14 @@
+package frontEnd;
+
+import controller.AppController;
+import controller.Order;
+import controller.Theater;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.event.*;
+import java.util.ArrayList;
 
 class TheaterPage extends JFrame implements ActionListener //list of Theater from user to choose from 
 { 
@@ -10,11 +16,14 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
     final JTextField textField1;
     JButton b1;
     static JList theaterList;
-    
+    private AppController controller;
+    private Order order;
         
     
-    TheaterPage()  
-    {  
+    TheaterPage(AppController controller, Order order)
+    {
+        this.controller=controller;
+        this.order=order;
         JFrame frame = new JFrame("Select Theater");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
@@ -46,8 +55,9 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
         theaterLabel = new JLabel();  
         theaterLabel.setText("Which theater Would you like to See?");      //set label value for textField1
 
-        String Theater[] ={"theater1", "theater2"}; //placeholder --use values from database
-        theaterList = new JList<>(Theater);
+        ArrayList<Theater> theaters=controller.movieToTheater(order.getMovie());
+        theaterList = new JList<>(theaters.toArray());
+
         
         theaterList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
@@ -68,9 +78,10 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
     {  
         String userValue = textField1.getText();//username from input        
           
-        if (userValue.length() < 30) {  //check if in database ---- this is a placeholder
-              
-            ShowtimesPage page = new ShowtimesPage();  
+        if (ae.getSource().equals(b1)&&userValue.length() < 30) {  //check if in database ---- this is a placeholder
+
+            order.setTheater((Theater) theaterList.getSelectedValue());
+            ShowtimesPage page = new ShowtimesPage(controller,order);
               
             page.setVisible(true);  
               

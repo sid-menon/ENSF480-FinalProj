@@ -4,15 +4,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
  
-public class PaymentPage extends JFrame implements ActionListener {
+public class RegistrationPage extends JFrame implements ActionListener {
 
     JButton b1;  
     JPanel newPanel;  
-    JLabel nameLabel, cardLabel, exprLabel, cvvLabel;  
-    final JTextField  textField1, textField2,textField3,textField4;  
+    JLabel nameLabel, cardLabel;  
+    final JTextField  textField1, textField2;  
  
  
-    PaymentPage()  
+    RegistrationPage()  
     {     
         //create label for username   
 
@@ -47,23 +47,14 @@ public class PaymentPage extends JFrame implements ActionListener {
         frame.setVisible(true);
 
         nameLabel = new JLabel();  
-        nameLabel.setText("Name");      //set label value for textField1  
+        nameLabel.setText("Create a Username");      //set label value for textField1  
           
         textField1 = new JTextField(15);
         cardLabel = new JLabel();  
-        cardLabel.setText("Card Number");      //set label value for textField2  
+        cardLabel.setText("Create a Password");      //set label value for textField2  
           
         textField2 = new JTextField(15);
 
-        exprLabel = new JLabel();  
-        exprLabel.setText("Expiration Date");      //set label value for textField3 
-          
-        textField3 = new JTextField(15);
-
-        cvvLabel = new JLabel();  
-        cvvLabel.setText("              CVV");      //set label value for textField4 
-          
-        textField4 = new JTextField(15);
         //create login button  
         b1 = new JButton("Submit");  
           
@@ -74,10 +65,6 @@ public class PaymentPage extends JFrame implements ActionListener {
         frame.add(textField1);   
         frame.add(cardLabel); 
         frame.add(textField2);
-        frame.add(exprLabel);
-        frame.add(textField3);   
-        frame.add(cvvLabel);   
-        frame.add(textField4);      
         frame.add(b1);           
           
           
@@ -90,16 +77,10 @@ public class PaymentPage extends JFrame implements ActionListener {
         String userValue = textField1.getText();//username from input        
         String passValue = textField2.getText();//password from input        
           
-        if (userValue.length() < 30 && passValue.length() < 30) {  //check if in database ---- this is a placeholder
-              
-            //MoviesPage page = new MoviesPage();  
-              
-            //page.setVisible(true);  
-              
-            //create a welcome label and set it to the new page  
-            //JLabel wel_label = new JLabel("Select From Available movies");  
-            //page.getContentPane().add(wel_label); 
-            System.out.println("paid"); 
+        if (userValue.length() < 30 && passValue.length() < 30) {  //check if username not in database database ---- this is a placeholder
+
+            //add new Registered user to the data base 
+            System.out.println("account created"); 
         }  
         else{  
             //show error message  

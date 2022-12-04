@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class JDBC {
 
@@ -110,7 +111,6 @@ public class JDBC {
 
                 Timestamp date=resultSet.getTimestamp("announce_date");
                 Time duration=resultSet.getTime("duration");
-                System.out.println(id+". "+name+", "+date.toString());
                 movies.add(new MovieInfo(id,name,date,duration));
 
             }
@@ -139,7 +139,7 @@ public class JDBC {
         }
     }
 
-    public void theaterManaged(AdminUser user){
+    public void adminTheaters(AdminUser user){
         String adminTheaters="Select * FROM manages as m, theater as t "+
                 "WHERE m.theater_id=t.id " +
                 "AND m.mgr_email=?";
@@ -206,8 +206,8 @@ public class JDBC {
         return res;
 
     }
-    public void insertSeat(char row,int col,int roomID){
-        String seatInsertStr="INSERT INTO seats (room_id, rowChar, col) "+
+    public void insertSeat(int roomID,int row,int col){
+        String seatInsertStr="INSERT INTO seats (room_id, rowNum, colNum) "+
                 "VALUES (?,?,?)";
         try(PreparedStatement insertStatement=connection.prepareStatement(seatInsertStr)){
             insertStatement.setInt(1,roomID);
@@ -252,6 +252,9 @@ public class JDBC {
                 "SET next_Available_Time=? " +
                 "WHERE id=?";
 
+        Date startTime=room.getNextAvailableTime();
+        room.updateNextAvailableTime(movieInfo.getDuration());
+        Date endTime=room.getNextAvailableTime();
 
 
         try(PreparedStatement insertShow=connection.prepareStatement(insertShowStr);
@@ -259,13 +262,12 @@ public class JDBC {
             insertShow.setInt(1,movieInfo.getId());
             insertShow.setInt(2,theater.getId());
             insertShow.setInt(3,room.getId());
-            insertShow.setTimestamp(4,room.getNextAvailableTime());
+            insertShow.setTimestamp(4,new Timestamp(startTime.getTime()));
             //        room next available time is updated
-            room.updateNextAvailableTime(movieInfo.getDuration());
-            insertShow.setTimestamp(5,room.getNextAvailableTime());
+            insertShow.setTimestamp(5,new Timestamp(endTime.getTime()));
             insertShow.execute();
 
-            updateTime.setTimestamp(1,room.getNextAvailableTime());
+            updateTime.setTimestamp(1,new Timestamp(endTime.getTime()));
             updateTime.setInt(2,room.getId());
             updateTime.execute();
 
@@ -276,6 +278,49 @@ public class JDBC {
 
 
 
+    }
+
+    public ArrayList<Theater> getTheaterFromMovies(int movID){
+
+        String selectStr="SELECT DISTINCT id,name,address FROM shows as s, theater as t " +
+                "WHERE t.id=theater_id" +
+                " AND mov_id=?";
+        ArrayList<Theater> theaters=new ArrayList<>();
+        try(PreparedStatement query=connection.prepareStatement(selectStr)){
+            query.setInt(1,movID);
+            ResultSet resultSet=query.executeQuery();
+            while (resultSet.next()){
+                int id=resultSet.getInt("id");
+                String name=resultSet.getString("name");
+                String address=resultSet.getString("address");
+                theaters.add(new Theater(id,name,address));
+            }
+            resultSet.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return theaters;
+    }
+
+
+    public ArrayList<Timestamp> getShowTimes(int theaterID,int movieID){
+
+        ArrayList<Timestamp> showTimes=new ArrayList<>();
+        String showTimeStr="SELECT * FROM shows " +
+                "WHERE mov_id=? " +
+                "AND theater_id=?";
+        try (PreparedStatement query=connection.prepareStatement(showTimeStr)){
+            query.setInt(1,movieID);
+            query.setInt(2,theaterID);
+            ResultSet resultSet= query.executeQuery();
+            while (resultSet.next()){
+                Timestamp time=resultSet.getTimestamp("start_time");
+                showTimes.add(time);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return showTimes;
     }
 
 

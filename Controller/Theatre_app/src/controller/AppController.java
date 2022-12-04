@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class AppController {
                setUser(loginUser);
 
                if(isAdmin()){
-                    connection.theaterManaged((AdminUser) user);
+                    connection.adminTheaters((AdminUser) user);
                }
 
                return true;
@@ -77,9 +78,9 @@ public class AppController {
           int newRoomID= connection.insertRoom(theater.getId(),roomNumber);
 //         room_id= Count(*) of rooms table since it is auto_increment
 //          populate the seats into the seat table
-          for(char c='a';c<'f';c++){
+          for(int c=1;c<5;c++){
                for(int i=1;i<=5;i++){
-                    connection.insertSeat(c,i,newRoomID);
+                    connection.insertSeat(newRoomID,c,i);
                }
           }
 
@@ -94,6 +95,17 @@ public class AppController {
           if(!user.getUserType().equals("admin")) return;
           connection.arrangeShow(movie,theater,room);
      }
+
+
+     public ArrayList<Theater> movieToTheater(MovieInfo movie){
+          return connection.getTheaterFromMovies(movie.getId());
+     }
+
+     public ArrayList<Timestamp> getShowTimes(Order order){
+          return connection.getShowTimes(order.getTheater().getId(),order.getMovie().getId());
+     }
+
+
 
 
 

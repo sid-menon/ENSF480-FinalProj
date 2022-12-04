@@ -14,8 +14,8 @@ DROP TABLE IF EXISTS seats;
 
 CREATE TABLE seats(
     room_id INT NOT NULL,
-    rowChar CHAR(1),
-    col INT,
+    rowNum INT,
+    colNum INT,
     occupied BOOLEAN DEFAULT false,
     FOREIGN KEY(room_id) REFERENCES rooms(id)
     ON DELETE CASCADE

@@ -1,4 +1,5 @@
-import javax.swing.*;  
+package frontEnd;
+import javax.swing.*;
   
 //create NewPage class to create a new page on which user will navigate  
 class ErrorPage extends JFrame  

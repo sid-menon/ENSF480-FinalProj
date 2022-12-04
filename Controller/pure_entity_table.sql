@@ -17,6 +17,9 @@ create table users(
 INSERT INTO users (email,password,paymentInfo,userType)
 VALUES ('fbcharles747@gmail.com','mypassword','1111-1111-1111-1111','admin');
 
+INSERT INTO users(email,password,paymentInfo)
+VALUES('charles737',123321,'1234-4321');
+
 -- movie table
 DROP TABLE IF EXISTS movies;
 CREATE TABLE movies(

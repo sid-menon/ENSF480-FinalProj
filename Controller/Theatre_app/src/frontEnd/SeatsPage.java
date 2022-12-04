@@ -1,3 +1,8 @@
+package frontEnd;
+
+import controller.AppController;
+import controller.Order;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,10 +15,15 @@ class SeatsPage extends JFrame implements ActionListener //list of Seats from us
     JButton b1;
     static JList SeatsList;
     
-        
+    private AppController controller;
+    private Order order;
+
     
-    SeatsPage()  
-    {  
+    SeatsPage(AppController controller,Order order)
+    {
+        this.controller=controller;
+        this.order=order;
+
         JFrame frame = new JFrame("Select Seats");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
@@ -45,6 +55,13 @@ class SeatsPage extends JFrame implements ActionListener //list of Seats from us
         SeatsLabel = new JLabel();  
         SeatsLabel.setText("Which Seats Would you like to See?");      //set label value for textField1
 
+
+//        now the movie, showtime, theater is picked, and room number is picked for the user
+//        we will get roomID from movie,theater,and showtime in shows table
+//        and join with seats table, extract unoccupied seats
+
+
+
         String Seats[] ={"Seats1", "Seats2"}; //placeholder --use values from database
         SeatsList = new JList<>(Seats);
         
@@ -60,17 +77,15 @@ class SeatsPage extends JFrame implements ActionListener //list of Seats from us
         frame.add(textField1);
         frame.add(SeatsList);
         frame.add(b1);
-        b1.addActionListener(this);
-
-
+        b1.addActionListener(this);     
     }  
 
     public void actionPerformed(ActionEvent ae)    
     {  
         String userValue = textField1.getText();//username from input        
           
-        if (userValue.length() < 30) {  //check if in database ---- this is a placeholder
-              
+        if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
+
             PaymentPage page = new PaymentPage();  
               
             page.setVisible(true);  
@@ -84,9 +99,5 @@ class SeatsPage extends JFrame implements ActionListener //list of Seats from us
             //show error message  
             JOptionPane.showMessageDialog(new JFrame(), "please enter valid username and password", "INVALID USERNAME/PASSWORD", JOptionPane.ERROR_MESSAGE);
         }  
-    }
-
-    public static void main(String[] args) {
-        SeatsPage seatsPage=new SeatsPage();
-    }
+    } 
 }
