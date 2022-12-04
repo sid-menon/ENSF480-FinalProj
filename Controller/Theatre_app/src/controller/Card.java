@@ -1,5 +1,5 @@
 
-package Controller;
+package controller;
 
 
 public class Card {
