@@ -5,9 +5,7 @@ public class Login {
     public static void main(String[] a){
         //test main class
         LoginPage frame=new LoginPage();
-        frame.setTitle("Login Form");
-        frame.setVisible(true);
-        frame.setBounds(10,10,370,600);
+        frame.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
  
