@@ -9,6 +9,6 @@ class ErrorPage extends JFrame
         setDefaultCloseOperation(javax.swing.  
         WindowConstants.DISPOSE_ON_CLOSE);  
         setTitle("Select from available movies: ");  
-        setSize(400, 200);  
+        setSize(300, 100);  
     }  
 }
