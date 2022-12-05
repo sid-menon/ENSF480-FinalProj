@@ -75,15 +75,15 @@ public class PaymentPage extends JFrame implements ActionListener {
           
         if (userValue.length() < 30 && passValue.length() < 30) {  //check if in database ---- this is a placeholder
               
-            //MoviesPage page = new MoviesPage();  
+            TicketPage page = new TicketPage();  
               
-            //page.setVisible(true);  
+            page.setVisible(true);  
               
             //create a welcome label and set it to the new page  
-            //JLabel wel_label = new JLabel("Select From Available movies");  
-            //page.getContentPane().add(wel_label); 
+            JLabel wel_label = new JLabel("Ticket");  
+            page.getContentPane().add(wel_label); 
             System.out.println("paid");
-            frame.dispose(); 
+            frame.dispose();  
         }  
         else{  
             //show error message  
