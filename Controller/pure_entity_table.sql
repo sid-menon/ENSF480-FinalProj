@@ -18,9 +18,7 @@ VALUES ('fbcharles747@gmail.com','mypassword','admin');
 
 
 
-INSERT INTO users(email,password)
-VALUES('charles727',123321),
-('x','d');
+
 
 -- movie table
 DROP TABLE IF EXISTS movies;

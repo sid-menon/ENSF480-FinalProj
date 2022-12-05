@@ -1,5 +1,13 @@
 package controller;
 
+/**
+ *        File Name: AppController.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -25,13 +33,18 @@ public class AppController {
                System.out.println("log in successful");
                setUser(loginUser);
 
+
                if(isAdmin()){
                     connection.adminTheaters((AdminUser) user);
+               }
+               if(!isAdmin()){
+                    PaymentInfo paymentInfo=connection.getPaymentInfoByEmail(user.getEmail());
+                    user.setPaymentInfo(paymentInfo);
                }
 
                return true;
           }else{
-               System.out.println("fail to log in");
+
                return false;
           }
 
@@ -39,8 +52,8 @@ public class AppController {
 
      }
 
-     public void signUp(){
-          connection.sighUp(user.getEmail(),user.getPassword(),user.getPaymentInfo());
+     public boolean signUp(){
+          return connection.sighUp(user.getEmail(),user.getPassword(),user.getPaymentInfo());
      }
 
 
@@ -108,6 +121,28 @@ public class AppController {
           int theaterID=order.getTheater().getId();
           Timestamp showTime=order.getShowTime();
           return connection.getSeatPageData(movieID,theaterID,showTime);
+     }
+
+
+
+     public void userReserve(Order order){
+//          insert the order into the reservation table
+          MovieInfo movie=order.getMovie();
+          Theater theater=order.getTheater();
+          Room room=order.getRoom();
+          Seat seat=order.getSeat();
+          connection.insertIntoReservations(user.getEmail(),
+                  movie.getId(),
+                  theater.getId(),
+                  seat.getRoomID(),
+                  seat.getRoomNum(),
+                  seat.getRow(),
+                  seat.getCol(),
+                  order.getShowTime()
+          );
+//          change the seat to occupied once the reservation is confirmed
+          connection.occupySeat(seat.getRoomID(), seat.getRow(), seat.getCol());
+
      }
 
 

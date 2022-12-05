@@ -1,5 +1,11 @@
 package frontEnd;
-
+/**
+ *        File Name: Swing_Login.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 import controller.AppController;
 
 import javax.swing.*;
@@ -28,11 +34,13 @@ public class Swing_Login extends JFrame{
                     setVisible(false);
 //                    vanish if log in successful
                 } else if (success) {
+
                     new MoviesPage(controller);
                     setVisible(false);
                 }else{
                     JOptionPane.showMessageDialog(null,"user email or password is wrong","fail to log in",JOptionPane.ERROR_MESSAGE);
-
+                    userEmail.setText("");
+                    userPassword.setText("");
                 }
 
             }

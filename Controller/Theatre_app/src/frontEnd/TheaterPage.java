@@ -84,7 +84,8 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
             ShowtimesPage page = new ShowtimesPage(controller,order);
               
             page.setVisible(true);  
-              
+
+            setVisible(false);
             //create a welcome label and set it to the new page  
             JLabel wel_label = new JLabel("Select From Available shwotimes");  
             page.getContentPane().add(wel_label);  

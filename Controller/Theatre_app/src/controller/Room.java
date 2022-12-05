@@ -1,5 +1,12 @@
 package controller;
 
+/**
+ *        File Name: Room.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;

@@ -4,6 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ *        File Name: JDBC.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
+
 public class JDBC {
 
     private Connection connection;
@@ -74,13 +82,13 @@ public class JDBC {
 //            System.out.println(insertStatement.toString());
             insertStatement.execute();
 
-            addPayment(email,paymentInfo);
+
 
         }catch (SQLException e){
             e.printStackTrace();
             return false;
         }
-        return true;
+        return addPayment(email,paymentInfo);
 
     }
 
@@ -359,6 +367,115 @@ public class JDBC {
             e.printStackTrace();
         }
         return seats;
+    }
+
+
+//    read from individual table (helper method)
+
+
+//    CRUD for reservations table
+//    public ArrayList<Order> getAllReservationByUser(String email){
+//
+//    }
+    public void insertIntoReservations(String email,int movID,int theaterID,int roomID,int roomNum,int row,int col,Timestamp start){
+        String insertStr="INSERT INTO reservations (customer_email,mov_id,theater_id,room_id,room_Number,rowNum,colNum,startTime) " +
+                "VALUES (?,?,?,?,?,?,?,?)";
+        try(PreparedStatement insertStatement=connection.prepareStatement(insertStr)){
+            insertStatement.setString(1,email);
+            insertStatement.setInt(2,movID);
+            insertStatement.setInt(3,theaterID);
+            insertStatement.setInt(4,roomID);
+            insertStatement.setInt(5,roomNum);
+            insertStatement.setInt(6,row);
+            insertStatement.setInt(7,col);
+            insertStatement.setTimestamp(8,start);
+
+            insertStatement.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+// CRUD for theater table
+
+    public Theater getTheaterByID(int id){
+        String str="SELECT * FROM theater WHERE id=?";
+        Theater theater=null;
+        try (PreparedStatement statement= connection.prepareStatement(str)){
+            statement.setInt(1,id);
+            ResultSet resultSet=statement.executeQuery();
+            if(resultSet.next()){
+                String name=resultSet.getString("name");
+                String address=resultSet.getString("address");
+                theater=new Theater(id,name,address);
+            }
+            resultSet.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return theater;
+    }
+
+//    CRUD for movies table
+    public MovieInfo getMovieByID(int id){
+        String str="SELECT * FROM movies WHERE id=?";
+        MovieInfo movieInfo=null;
+        try(PreparedStatement statement= connection.prepareStatement(str)){
+            statement.setInt(1,id);
+            ResultSet resultSet=statement.executeQuery();
+            if(resultSet.next()){
+                String name=resultSet.getString("name");
+                Timestamp dataOfAnnounce=resultSet.getTimestamp("announce_date");
+                Time duration=resultSet.getTime("duration");
+                movieInfo=new MovieInfo(id,name,dataOfAnnounce,duration);
+            }
+            resultSet.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return movieInfo;
+    }
+
+//    CRUD for seats table
+
+    public void occupySeat(int roomID,int row,int col){
+        String str="UPDATE seats" +
+                " SET occupied=true" +
+                " WHERE room_id=?" +
+                " AND rowNum=?" +
+                " AND colNum=?";
+        try(PreparedStatement statement= connection.prepareStatement(str)){
+            statement.setInt(1,roomID);
+            statement.setInt(2,row);
+            statement.setInt(3,col);
+            statement.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+//    CRUD for payment
+    public PaymentInfo getPaymentInfoByEmail(String email){
+
+        String readStr="SELECT * FROM paymentInfo WHERE user_email=?";
+        ArrayList<PaymentInfo> paymentInfoList=new ArrayList<>();
+        try(PreparedStatement readStatement=connection.prepareStatement(readStr)){
+            readStatement.setString(1,email);
+            System.out.println(readStatement.toString());
+            ResultSet resultset=readStatement.executeQuery();
+            while (resultset.next()){
+                String cardHolder=resultset.getString("card_holder");
+                String cardNumber=resultset.getString("card_number");
+                int cvv=resultset.getInt("cvv");
+                paymentInfoList.add(new PaymentInfo(cardHolder,cardNumber,cvv));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return paymentInfoList.get(0);
     }
 
 

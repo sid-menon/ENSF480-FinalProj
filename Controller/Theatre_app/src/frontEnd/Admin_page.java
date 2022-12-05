@@ -1,4 +1,11 @@
 package frontEnd;
+/**
+ *        File Name: Admin_page.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 
 import controller.*;
 
@@ -64,8 +71,14 @@ public class Admin_page extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Theater selected=(Theater) theaterPick.getSelectedItem();
                 if(selected.equals(noTheaterSelect)) return;
-                controller.createRoom(selected);
-                updateRoomList((DefaultComboBoxModel) roomOfTheater.getModel(),selected);
+
+                String confirmMessage="New room will be created at "+selected+"\n" +
+                        "Do you wish to proceed";
+                if(JOptionPane.showConfirmDialog(null,confirmMessage,"confirm: create new room",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+                    controller.createRoom(selected);
+                    updateRoomList((DefaultComboBoxModel) roomOfTheater.getModel(),selected);
+                }
+
 
             }
         });
@@ -90,9 +103,9 @@ public class Admin_page extends JFrame{
         roomOfTheater.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(roomOfTheater.getModel().getSelectedItem().equals(noRoomSelect)) return;
                 Room selectedRoom=(Room) roomOfTheater.getSelectedItem();
-                nextAvailableTime.setText("Next available time: "+selectedRoom.getNextAvailableTime());
+                if(selectedRoom!=null)
+                    nextAvailableTime.setText("Next available time: "+selectedRoom.getNextAvailableTime());
             }
         });
 //
@@ -105,11 +118,19 @@ public class Admin_page extends JFrame{
                 Room room=(Room) roomOfTheater.getModel().getSelectedItem();
                 MovieInfo movie=(MovieInfo) movieList.getSelectedValue();
 
-                if(theater.getId()!=-1&&room.getId()!=-1&&movie!=null) controller.createShow(movie,theater,room);
+                if(theater.getId()!=-1&&room.getId()!=-1&&movie!=null){
+                    Theater selectedTheater=(Theater) theaterPick.getModel().getSelectedItem();
+                    Room selectedRoom=(Room) roomOfTheater.getModel().getSelectedItem();
+                    String confirmMessage="new show will be created at "+selectedTheater+"\n" +
+                            "Room Number: "+room.getRoomNumber()+", show time: "+room.getNextAvailableTime()+"\n" +
+                            "Do you wish to proceed?";
+                    if(JOptionPane.YES_OPTION==JOptionPane.showConfirmDialog(null,confirmMessage,"confirm:create new show",JOptionPane.YES_NO_OPTION)){
+                        controller.createShow(movie,theater,room);
+                        nextAvailableTime.setText("");
 
+                    }
 
-                nextAvailableTime.setText("");
-
+                }
 
             }
 
@@ -147,10 +168,6 @@ public class Admin_page extends JFrame{
 
     }
 
-    public static void main(String[] args) {
-        AppController controller=new AppController();
-        Admin_page adminPage=new Admin_page(controller);
 
-    }
 
 }

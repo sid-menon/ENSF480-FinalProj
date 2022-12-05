@@ -88,19 +88,25 @@ class SeatsPage extends JFrame implements ActionListener //list of Seats from us
           
         if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
             PaymentPage page;
-            if(controller.getUser()==null){
-                page=new PaymentPage(PaymentPageMode.TICKET_ORDER_VISITOR);
-            }else{
-                page=new PaymentPage(PaymentPageMode.TICKET_ORDER_USER);
+            Seat selectedSeat=(Seat) SeatsList.getSelectedValue();
+            if(selectedSeat!=null){
+                order.setSeat(selectedSeat);
+                if(controller.getUser()==null){
+                    page=new PaymentPage(PaymentPageMode.TICKET_ORDER_VISITOR,controller,order);
+                }else{
+                    page=new PaymentPage(PaymentPageMode.TICKET_ORDER_USER,controller,order);
+                }
+                //create a welcome label and set it to the new page
+                JLabel wel_label = new JLabel("Payment");
+                page.getContentPane().add(wel_label);
+                System.out.println("Seats selected");
+                setVisible(false);
+                page.setVisible(true);
             }
+            else JOptionPane.showMessageDialog(null,"Please select a seat","error",JOptionPane.ERROR_MESSAGE);
 
-              
-            page.setVisible(true);  
-              
-            //create a welcome label and set it to the new page  
-            JLabel wel_label = new JLabel("Payment");  
-            page.getContentPane().add(wel_label);  
-            System.out.println("Seats selected");
+
+
         }  
         else{  
             //show error message  

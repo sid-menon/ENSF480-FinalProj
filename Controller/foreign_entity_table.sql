@@ -26,12 +26,15 @@ CREATE TABLE seats(
 DROP TABLE IF EXISTS reservations;
 CREATE TABLE reservations(
     customer_email VARCHAR(250),
+    mov_id INT,
     theater_id INT,
+    room_id INT,
     room_Number INT,
-    rowChar CHAR(1),
-    col INT,
+    rowNum INT,
+    colNum INT,
     startTime TIMESTAMP,
-    endTime TIMESTAMP
+    FOREIGN KEY(mov_id) REFERENCES movies(id) ON DELETE CASCADE,
+    FOREIGN KEY(theater_id) REFERENCES theater(id) ON DELETE CASCADE
 );
 
 

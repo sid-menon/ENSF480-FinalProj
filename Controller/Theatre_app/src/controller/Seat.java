@@ -89,6 +89,7 @@ public class Seat
 		return isTaken;
 	}
 
+
 	public String toString(){
 		return (isTaken?"X":"O");
 	}

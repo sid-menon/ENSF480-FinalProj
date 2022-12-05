@@ -85,8 +85,8 @@ public class RegistrationPage extends JFrame implements ActionListener {
 
             User newUser=new RegisteredUser(userValue,passValue);
             controller.setUser(newUser);
-            PaymentPage page=new PaymentPage(PaymentPageMode.REGISTRATION);
-            page.setController(controller);
+            PaymentPage page=new PaymentPage(PaymentPageMode.REGISTRATION,controller,null);
+
 
 
 

@@ -2,6 +2,13 @@ package controller;
 
 import java.sql.Timestamp;
 
+/**
+ *        File Name: Order.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 public class Order {
     private MovieInfo movie;
     private Theater theater;
@@ -45,5 +52,21 @@ public class Order {
 
     public void setShowTime(Timestamp showTime) {
         this.showTime = showTime;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 }

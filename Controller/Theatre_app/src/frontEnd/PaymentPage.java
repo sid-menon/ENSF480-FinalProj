@@ -20,19 +20,15 @@ public class PaymentPage extends JFrame implements ActionListener {
 
     private PaymentPageMode pageMode;
 
-    public void setController(AppController controller) {
-        this.controller = controller;
-    }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
-    PaymentPage(PaymentPageMode mode)
+    PaymentPage(PaymentPageMode mode,AppController controller,Order order)
     {     
         //create label for username   
 
         this.pageMode=mode;
+        this.order=order;
+        this.controller=controller;
 
         JFrame frame = new JFrame("Make Payment");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,6 +62,7 @@ public class PaymentPage extends JFrame implements ActionListener {
         nameLabel.setText("Name");      //set label value for textField1  
           
         textField1 = new JTextField(15);
+
         cardLabel = new JLabel();  
         cardLabel.setText("Card Number");      //set label value for textField2  
           
@@ -82,7 +79,13 @@ public class PaymentPage extends JFrame implements ActionListener {
         textField4 = new JTextField(15);
         //create login button  
         b1 = new JButton("Submit");  
-          
+
+        if(pageMode.equals(PaymentPageMode.TICKET_ORDER_USER)){
+            PaymentInfo userPayment=controller.getUser().getPaymentInfo();
+            textField1.setText(userPayment.getCardHolderName());
+            textField2.setText(userPayment.getCardNumber());
+            textField4.setText(String.valueOf(userPayment.getCvv()));
+        }
         
 
 
@@ -102,9 +105,7 @@ public class PaymentPage extends JFrame implements ActionListener {
       
     public void actionPerformed(ActionEvent ae)    
     {  
-        String cardHolder = textField1.getText();//username from input
-        String cardNumber = textField2.getText();//password from input
-        int cvv=Integer.valueOf(textField4.getText());
+
 
           
         if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
@@ -116,10 +117,35 @@ public class PaymentPage extends JFrame implements ActionListener {
             //create a welcome label and set it to the new page  
             //JLabel wel_label = new JLabel("Select From Available movies");  
             //page.getContentPane().add(wel_label);
-            PaymentInfo paymentInfo=new PaymentInfo(cardHolder,cardNumber,cvv);
-            controller.getUser().setPaymentInfo(paymentInfo);
+
             if(pageMode.equals(PaymentPageMode.REGISTRATION)){
-                controller.signUp();
+                String cardHolder = textField1.getText();//username from input
+                String cardNumber = textField2.getText();//password from input
+                int cvv=Integer.valueOf(textField4.getText());
+                PaymentInfo paymentInfo=new PaymentInfo(cardHolder,cardNumber,cvv);
+                controller.getUser().setPaymentInfo(paymentInfo);
+                if(controller.signUp()){
+                    JOptionPane.showMessageDialog(null,"sign up successful","congratulation",JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null,"user email already exists","fail to sign up",JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+
+            if(pageMode.equals(PaymentPageMode.TICKET_ORDER_USER)){
+//                insert the user into reservation
+                String confirmation="Movie: "+order.getMovie().getMovieName()+"\n" +
+                        "Theater: "+order.getTheater().getName()+"\n" +
+                        "ShowTime: "+order.getShowTime()+"\n" +
+                        "Room #: "+order.getSeat().getRoomNum()+"\n" +
+                        "Row: "+order.getSeat().getRow()+", "+"Column: "+order.getSeat().getCol()+"\n" +
+                        "Do you wish to proceed with this ticket purchase?";
+
+                if(JOptionPane.showConfirmDialog(null,confirmation,"order confirmation",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+                    controller.userReserve(order);
+                }
+//                change the seat status
+
 
             }
 
