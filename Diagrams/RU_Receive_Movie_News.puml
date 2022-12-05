@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!include style.puml
+box App LOGIC_COLOR_T1
+participant ":App" as App LOGIC_COLOR
+end box
+
+box User MODEL_COLOR_T1
+participant ":RegisteredUser" as RegisteredUser MODEL_COLOR
+end box
+
+box Database STORAGE_COLOR_T1
+participant ":Database" as Database STORAGE_COLOR
+end box
+
+->App++
+    App->Database++:get registered emails
+    Database-->App--:return the emails
+
+App->RegisteredUser:Sent the movie news through email
+RegisteredUser++
+RegisteredUser-->App
+RegisteredUser--
+App--
+
+@enduml

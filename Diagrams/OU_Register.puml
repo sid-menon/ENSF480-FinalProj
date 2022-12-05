@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!include style.puml
+box Frontend LOGIC_COLOR_T1
+participant ":OrdinaryUser" as ou LOGIC_COLOR
+participant ":RegistrationForm" as regForm LOGIC_COLOR
+participant ":RegisteredUser" as ru LOGIC_COLOR
+end box
+
+box Database MODEL_COLOR_T1
+participant ":Database" as database MODEL_COLOR
+end box
+
+[->ou
+
+activate ou
+ou -> regForm: start registration
+deactivate ou
+activate regForm
+
+regForm -> ru: creates
+deactivate regForm
+activate ru
+
+ru -> database: register()
+deactivate ru
+activate database
+
+@enduml
