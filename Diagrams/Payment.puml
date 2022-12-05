@@ -17,9 +17,11 @@ activate user
 user -> paymentPage: User wants to make payment
 activate paymentPage
 
-paymentPage -> paymentPage: User keys in payment information
-activate paymentPage
-deactivate paymentPage
+alt ordinary user
+    paymentPage -> paymentPage: User keys in payment information
+    activate paymentPage
+    deactivate paymentPage
+end
 
 paymentPage -> database: User makes payment
 deactivate paymentPage
@@ -30,18 +32,19 @@ activate receipt
 receipt --> database: receipt
 deactivate receipt
 
-database -> ticket: generate ticket
-activate ticket
-ticket --> database: receipt
-deactivate ticket
+alt ordinary user
+    database -> ticket: generate ticket
+    activate ticket
+    ticket --> database: receipt
+    deactivate ticket
 
-database -> email: send ticket
-activate email
-deactivate email
+    database -> email: send ticket
+    activate email
+    deactivate email
+end
 
 database --> user: receipt
 deactivate database
-
 [<-- user: User leaves app
 deactivate user
 

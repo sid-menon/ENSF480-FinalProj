@@ -7,6 +7,7 @@ participant ":Movie" as movie LOGIC_COLOR
 participant ":Theatre" as theatre LOGIC_COLOR
 participant ":Showtime" as showtime LOGIC_COLOR
 participant ":Seat" as seat LOGIC_COLOR
+participant ":PaymentPage" as paymentPage LOGIC_COLOR
 end box
 
 box Backend MODEL_COLOR_T1
@@ -53,7 +54,12 @@ activate database
 database --> seat: seats
 deactivate database
 
+ref over seat, paymentPage
+    payment
+end ref
+
 seat --> user
 deactivate seat
+[<-- user
 deactivate user
 @enduml

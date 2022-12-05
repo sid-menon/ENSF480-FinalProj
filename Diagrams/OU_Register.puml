@@ -5,6 +5,7 @@
 box Frontend LOGIC_COLOR_T1
 participant ":OrdinaryUser" as ou LOGIC_COLOR
 participant ":RegistrationForm" as regForm LOGIC_COLOR
+participant ":PaymentInfoForm" as paymentInfoForm LOGIC_COLOR
 participant ":RegisteredUser" as ru LOGIC_COLOR
 end box
 
@@ -15,12 +16,16 @@ end box
 [->ou
 
 activate ou
-ou -> regForm: start registration
+ou -> regForm: input username and password
 deactivate ou
 activate regForm
 
-regForm -> ru: creates
+regForm -> paymentInfoForm: input payment info
 deactivate regForm
+activate paymentInfoForm
+
+paymentInfoForm -> ru: creates
+deactivate paymentInfoForm
 activate ru
 
 ru -> database: register()

@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!include style.puml
+box Admin LOGIC_COLOR_T1
+participant ":Admin" as admin LOGIC_COLOR
+participant ":Showtime" as showtime LOGIC_COLOR
+participant ":Theatre" as theatre LOGIC_COLOR
+end box
+
+box Database MODEL_COLOR_T1
+participant ":Database" as database MODEL_COLOR
+end box
+
+[->admin
+
+activate admin
+admin -> showtime: create()
+activate showtime
+
+showtime -> database: createShowtime()
+activate database
+
+database --> showtime: showtime
+deactivate database
+
+showtime --> admin
+deactivate showtime
+
+admin -> theatre: create()
+activate theatre
+
+theatre -> database: createTheatre()
+activate database
+
+database --> theatre: theatre
+deactivate database
+
+theatre --> admin
+deactivate theatre
+
+[<-- admin
+deactivate admin
+
+@enduml
