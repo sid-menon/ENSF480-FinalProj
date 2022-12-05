@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="frontEnd.ViewTickets">
+  <grid id="27dc6" binding="content" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="e3f50" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints border-constraint="South"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="397c1" class="javax.swing.JButton" binding="cancelTicketButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Cancel ticket"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <scrollpane id="756d0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="86bfc" class="javax.swing.JList" binding="ticketList">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
+      <hspacer id="4f0c5">
+        <constraints border-constraint="West"/>
+      </hspacer>
+      <hspacer id="8419d">
+        <constraints border-constraint="East"/>
+      </hspacer>
+    </children>
+  </grid>
+</form>

@@ -1,8 +1,14 @@
+package frontEnd;
+
+import controller.AppController;
+import controller.Order;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.event.*;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes from user to choose from 
 { 
@@ -10,11 +16,17 @@ class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes
     final JTextField textField1;
     JButton b1;
     static JList ShowtimesList;
+
+    private AppController controller;
+    private Order order;
+
     
-        
-    
-    ShowtimesPage()  
-    {  
+    ShowtimesPage(AppController controller,Order order)
+    {
+        this.controller=controller;
+        this.order=order;
+
+
         JFrame frame = new JFrame("Select Showtimes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
@@ -46,8 +58,8 @@ class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes
         ShowtimesLabel = new JLabel();  
         ShowtimesLabel.setText("Which Showtimes Would you like to See?");      //set label value for textField1
 
-        String Showtimes[] ={"7:00pm", "7:00pm"}; //placeholder --use values from database
-        ShowtimesList = new JList<>(Showtimes);
+        ArrayList<Timestamp> showTimes=controller.getShowtimesPageData(order); //placeholder --use values from database
+        ShowtimesList = new JList<>(showTimes.toArray());
         
         ShowtimesList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
@@ -68,9 +80,10 @@ class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes
     {  
         String userValue = textField1.getText();//username from input        
           
-        if (userValue.length() < 30) {  //check if in database ---- this is a placeholder
-              
-            SeatsPage page = new SeatsPage();  
+        if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
+
+            order.setShowTime((Timestamp) ShowtimesList.getSelectedValue());
+            SeatsPage page = new SeatsPage(controller,order);
               
             page.setVisible(true);  
               

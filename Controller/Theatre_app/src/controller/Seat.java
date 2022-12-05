@@ -4,11 +4,16 @@ public class Seat
 {
 	private int row;
 	private int col;
+
+	private int roomID;
+
+	private int roomNum;
+
 	private boolean isEarlyRegistration;
 	private boolean isTaken;
 	
 
-	public Seat(int row, int col) 
+	public Seat(int row, int col)
     {
 		this.row = row;
 		this.col = col;
@@ -44,24 +49,49 @@ public class Seat
 		}
 	}
 	
-	public int getrow() 
+	public int getRow()
     {
 		return row;
 	}
 
-	public int getcol() 
+	public int getCol()
     {
 		return col;
 	}
 
-	public boolean isEarlyRegistration() 
+	public int getRoomID() {
+		return roomID;
+	}
+
+	public void setRoomID(int roomID) {
+		this.roomID = roomID;
+	}
+
+	public int getRoomNum() {
+		return roomNum;
+	}
+
+	public void setRoomNum(int roomNum) {
+		this.roomNum = roomNum;
+	}
+
+	public boolean isEarlyRegistration()
     {
 		return isEarlyRegistration;
 	}
 
-	public boolean isTaken() 
+	public void setTaken(boolean taken) {
+		isTaken = taken;
+	}
+
+	public boolean isTaken()
     {
 		return isTaken;
+	}
+
+
+	public String toString(){
+		return (isTaken?"X":"O");
 	}
 
 }

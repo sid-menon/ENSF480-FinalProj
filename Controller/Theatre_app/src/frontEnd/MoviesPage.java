@@ -1,8 +1,13 @@
+package frontEnd;
+
+import controller.AppController;
+import controller.MovieInfo;
+import controller.Order;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.event.*;
 
 class MoviesPage extends JFrame implements ActionListener //list of movies from user to choose from 
 { 
@@ -10,11 +15,13 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
     final JTextField textField1;
     JButton b1;
     static JList movieList;
-    
+
+    private AppController controller;
         
     
-    MoviesPage()  
-    {  
+    MoviesPage(AppController controller)
+    {
+        this.controller=controller;
         JFrame frame = new JFrame("Select Movies");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
@@ -46,8 +53,8 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
         movieLabel = new JLabel();  
         movieLabel.setText("Which Movie Would you like to See?");      //set label value for textField1
 
-        String movies[] ={"movie1", "movie2"}; //placeholder --use values from database
-        movieList = new JList<>(movies);
+
+        movieList = new JList<>(controller.getAllMovies().toArray());
         
         movieList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
@@ -68,10 +75,14 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
     {  
         String userValue = textField1.getText();//username from input        
           
-        if (userValue.length() < 30) {  //check if in database ---- this is a placeholder
+        if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
+
+            Order order=new Order();
+            order.setMovie((MovieInfo) movieList.getSelectedValue());
               
-            TheaterPage page = new TheaterPage();  
-              
+            TheaterPage page = new TheaterPage(controller,order);
+
+
             page.setVisible(true);  
               
             //create a welcome label and set it to the new page  
@@ -83,14 +94,5 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
             //show error message  
             JOptionPane.showMessageDialog(new JFrame(), "please enter an available movie", "MOVIE NOT FOUND", JOptionPane.ERROR_MESSAGE);
         }  
-    }
-
-    public static void main(String[] args) {
-        MoviesPage moviesPage=new MoviesPage();
-        moviesPage.setBounds(10,10,370,600);
-        moviesPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        moviesPage.setResizable(false);
-        moviesPage.setVisible(true);
-
-    }
+    } 
 }

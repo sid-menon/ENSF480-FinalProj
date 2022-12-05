@@ -1,4 +1,11 @@
 package frontEnd;
+/**
+ *        File Name: Admin_page.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 
 import controller.*;
 
@@ -25,12 +32,19 @@ public class Admin_page extends JFrame{
 
         this.controller=controller;
 
-
+//      initialize the available room list
         Room noRoomSelect=new Room(-1,-1,-1,null);
-        roomOfTheater.addItem(noRoomSelect);
-        Theater noSelect=new Theater(-1,"Please select theater","");
-        theaterPick.addItem(noSelect);
-        theaterPick.setSelectedIndex(0);
+        DefaultComboBoxModel<Room> roomModel=new DefaultComboBoxModel<>();
+//        roomModel.addElement(noRoomSelect);
+        roomOfTheater.setModel(roomModel);
+
+
+        Theater noTheaterSelect=new Theater(-1,"Please select theater","");
+        DefaultComboBoxModel<Theater> theaterModel=new DefaultComboBoxModel<>();
+        theaterModel.addElement(noTheaterSelect);
+        theaterPick.setModel(theaterModel);
+
+
 
 //        movie list
         DefaultListModel<MovieInfo> dlm=new DefaultListModel<>();
@@ -42,12 +56,7 @@ public class Admin_page extends JFrame{
 
 //        populate the table upon start
         //populate the option in theater pick
-
-
-        AdminUser admin=(AdminUser) controller.getUser();
-        for(Theater theater:admin.getTheaters()){
-            theaterPick.addItem(theater);
-        }
+        updateTheaterList((DefaultComboBoxModel) theaterPick.getModel());
 
 
         setContentPane(panelMain);
@@ -60,7 +69,17 @@ public class Admin_page extends JFrame{
         newRoom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.createRoom((Theater) theaterPick.getSelectedItem());
+                Theater selected=(Theater) theaterPick.getSelectedItem();
+                if(selected.equals(noTheaterSelect)) return;
+
+                String confirmMessage="New room will be created at "+selected+"\n" +
+                        "Do you wish to proceed";
+                if(JOptionPane.showConfirmDialog(null,confirmMessage,"confirm: create new room",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+                    controller.createRoom(selected);
+                    updateRoomList((DefaultComboBoxModel) roomOfTheater.getModel(),selected);
+                }
+
+
             }
         });
 
@@ -70,13 +89,10 @@ public class Admin_page extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Theater selected=(Theater) theaterPick.getSelectedItem();
-                if(selected.getId()!=-1){
-                    ArrayList<Room> rooms=controller.getAvailableRooms(selected);
-                    for(Room room:rooms){
-                        roomOfTheater.addItem(room);
-                    }
-                }
+                Theater selected=(Theater) theaterPick.getModel().getSelectedItem();
+                DefaultComboBoxModel<Room> newRoomModel=new DefaultComboBoxModel<>();
+                roomOfTheater.setModel(roomModel);
+                updateRoomList((DefaultComboBoxModel) roomOfTheater.getModel(),selected);
 
 
             }
@@ -88,7 +104,8 @@ public class Admin_page extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Room selectedRoom=(Room) roomOfTheater.getSelectedItem();
-                nextAvailableTime.setText("Next available time: "+selectedRoom.getNextAvailableTime());
+                if(selectedRoom!=null)
+                    nextAvailableTime.setText("Next available time: "+selectedRoom.getNextAvailableTime());
             }
         });
 //
@@ -97,16 +114,23 @@ public class Admin_page extends JFrame{
             public void actionPerformed(ActionEvent e) {
 //                Theater selected
 
-                Theater theater=(Theater) theaterPick.getSelectedItem();
-                Room room=(Room) roomOfTheater.getSelectedItem();
+                Theater theater=(Theater) theaterPick.getModel().getSelectedItem();
+                Room room=(Room) roomOfTheater.getModel().getSelectedItem();
                 MovieInfo movie=(MovieInfo) movieList.getSelectedValue();
 
-                if(theater.getId()!=-1&&room.getId()!=-1&&movie!=null) controller.createShow(movie,theater,room);
+                if(theater.getId()!=-1&&room.getId()!=-1&&movie!=null){
+                    Theater selectedTheater=(Theater) theaterPick.getModel().getSelectedItem();
+                    Room selectedRoom=(Room) roomOfTheater.getModel().getSelectedItem();
+                    String confirmMessage="new show will be created at "+selectedTheater+"\n" +
+                            "Room Number: "+room.getRoomNumber()+", show time: "+room.getNextAvailableTime()+"\n" +
+                            "Do you wish to proceed?";
+                    if(JOptionPane.YES_OPTION==JOptionPane.showConfirmDialog(null,confirmMessage,"confirm:create new show",JOptionPane.YES_NO_OPTION)){
+                        controller.createShow(movie,theater,room);
+                        nextAvailableTime.setText("");
 
-                theaterPick.setSelectedIndex(0);
-                roomOfTheater.setSelectedIndex(0);
-                nextAvailableTime.setText("");
+                    }
 
+                }
 
             }
 
@@ -116,17 +140,34 @@ public class Admin_page extends JFrame{
 
 
     private void updateMoviesList(DefaultListModel dlm){
-        ArrayList<MovieInfo> movies=controller.allMovies();
+        ArrayList<MovieInfo> movies=controller.getAllMovies();
         for(MovieInfo movieInfo:movies){
             dlm.addElement(movieInfo);
         }
     }
 
-    public static void main(String[] args) {
-        AppController controller=new AppController();
-        Admin_page adminPage=new Admin_page(controller);
+    private void updateRoomList(DefaultComboBoxModel model,Theater theaterSelected){
 
+        ArrayList<Room> rooms=controller.getAvailableRooms(theaterSelected);
+
+        if(model!=null&&model.getSize()!=0) model.removeAllElements();
+        for(Room room:rooms){
+            model.addElement(room);
+        }
 
     }
+
+    private void updateTheaterList(DefaultComboBoxModel model){
+        AdminUser admin=(AdminUser) controller.getUser();
+
+        Theater[] theaters=admin.getTheaters();
+        model.removeAllElements();
+        for (Theater theater:theaters){
+            model.addElement(theater);
+        }
+
+    }
+
+
 
 }

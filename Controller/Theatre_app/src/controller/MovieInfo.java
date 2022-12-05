@@ -1,5 +1,12 @@
 package controller;
 
+/**
+ *        File Name: MovieInfo.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 import java.sql.Time;
 import java.util.Date;
 
@@ -28,7 +35,9 @@ public class MovieInfo {
     }
 
     public Time getDuration() {
+
         return duration;
+
     }
 
     public int getId() {
@@ -36,6 +45,7 @@ public class MovieInfo {
     }
 
     public String toString(){
-        return (movieName+", "+duration+ " release at "+dateOfAnnounce);
+//        System.out.println("The movie span "+duration.getHours()+ " Hours"+ duration.getMinutes()+" minutes\n");
+        return (movieName+", "+duration);
     }
 }

@@ -1,5 +1,11 @@
 package controller;
-
+/**
+ *        File Name: Theater.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 public class Theater {
     private int id;
     private String name;

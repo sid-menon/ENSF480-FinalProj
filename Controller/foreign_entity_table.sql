@@ -14,8 +14,8 @@ DROP TABLE IF EXISTS seats;
 
 CREATE TABLE seats(
     room_id INT NOT NULL,
-    rowChar CHAR(1),
-    col INT,
+    rowNum INT,
+    colNum INT,
     occupied BOOLEAN DEFAULT false,
     FOREIGN KEY(room_id) REFERENCES rooms(id)
     ON DELETE CASCADE
@@ -26,12 +26,15 @@ CREATE TABLE seats(
 DROP TABLE IF EXISTS reservations;
 CREATE TABLE reservations(
     customer_email VARCHAR(250),
+    mov_id INT,
     theater_id INT,
+    room_id INT,
     room_Number INT,
-    rowChar CHAR(1),
-    col INT,
+    rowNum INT,
+    colNum INT,
     startTime TIMESTAMP,
-    endTime TIMESTAMP
+    FOREIGN KEY(mov_id) REFERENCES movies(id) ON DELETE CASCADE,
+    FOREIGN KEY(theater_id) REFERENCES theater(id) ON DELETE CASCADE
 );
 
 
@@ -64,6 +67,19 @@ CREATE TABLE manages(
 
 INSERT INTO manages(mgr_email,theater_id)
 VALUES('fbcharles747@gmail.com',1);
+
+DROP TABLE IF EXISTS paymentInfo;
+
+CREATE TABLE paymentInfo(
+    user_email VARCHAR(250),
+    card_holder VARCHAR(250),
+    card_number VARCHAR(250),
+    cvv INT,
+    FOREIGN KEY(user_email) REFERENCES users(email) ON DELETE CASCADE,
+    PRIMARY KEY(user_email,card_number)
+);
+
+
 
 
 

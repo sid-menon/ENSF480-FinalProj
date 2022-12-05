@@ -7,15 +7,18 @@ DROP TABLE IF EXISTS users;
 create table users(
     email VARCHAR(250),
     password VARCHAR(250),
-    paymentInfo VARCHAR(250),
     userType VARCHAR(250) DEFAULT 'ordinary',
     primary key(email)
 );
 
 -- first admin user
 -- can be used to create other admin
-INSERT INTO users (email,password,paymentInfo,userType)
-VALUES ('fbcharles747@gmail.com','mypassword','1111-1111-1111-1111','admin');
+INSERT INTO users (email,password,userType)
+VALUES ('fbcharles747@gmail.com','mypassword','admin');
+
+
+
+
 
 -- movie table
 DROP TABLE IF EXISTS movies;
