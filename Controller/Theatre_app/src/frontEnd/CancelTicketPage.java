@@ -66,14 +66,14 @@ class CancelTicketPage extends JFrame implements ActionListener //list of Seats 
           
         if (userValue.length() < 30) {  //check if in database ---- this is a placeholder
               
-            PaymentPage page = new PaymentPage();
-              
-            page.setVisible(true);  
-              
-            //create a welcome label and set it to the new page  
-            JLabel wel_label = new JLabel("Payment");  
-            page.getContentPane().add(wel_label);  
-            System.out.println("Seat Cancelled");
+//            PaymentPage page = new PaymentPage();
+//
+//            page.setVisible(true);
+//
+//            //create a welcome label and set it to the new page
+//            JLabel wel_label = new JLabel("Payment");
+//            page.getContentPane().add(wel_label);
+//            System.out.println("Seat Cancelled");
         }  
         else{  
             //show error message  

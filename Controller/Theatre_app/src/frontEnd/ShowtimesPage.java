@@ -58,7 +58,7 @@ class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes
         ShowtimesLabel = new JLabel();  
         ShowtimesLabel.setText("Which Showtimes Would you like to See?");      //set label value for textField1
 
-        ArrayList<Timestamp> showTimes=controller.getShowTimes(order); //placeholder --use values from database
+        ArrayList<Timestamp> showTimes=controller.getShowtimesPageData(order); //placeholder --use values from database
         ShowtimesList = new JList<>(showTimes.toArray());
         
         ShowtimesList.setLayoutOrientation(JList.HORIZONTAL_WRAP);

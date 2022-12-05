@@ -4,8 +4,8 @@ public class RegisteredUser extends User {
 
 
 
-    public RegisteredUser(String email, String password, String paymentInfo) {
-        super(email,password,paymentInfo,"registered");
+    public RegisteredUser(String email, String password) {
+        super(email,password,"registered");
 
     }
 

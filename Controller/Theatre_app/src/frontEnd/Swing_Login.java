@@ -12,6 +12,7 @@ public class Swing_Login extends JFrame{
     private JButton signInButton;
     private JPasswordField userPassword;
     private JButton signUpButton;
+    private JButton guestBtn;
 
 
     public Swing_Login(AppController controller) {
@@ -36,11 +37,19 @@ public class Swing_Login extends JFrame{
 
             }
         });
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RegistrationPage(controller);
+            }
+        });
+
         setContentPane(panelMain);
         setTitle("Login");
-        setSize(300,300);
+        setSize(600,500);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     public static void main(String[] args) {

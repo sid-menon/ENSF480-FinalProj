@@ -39,14 +39,13 @@ public class JDBC {
             if(result.next()){
                 String temp_email = result.getString("email");
                 String temp_password = result.getNString("password");
-                String temp_payInfo = result.getString("paymentInfo");
                 String userType=result.getString("userType");
 
 
                 if (userType.compareTo("admin")==0) {
-                    user = new AdminUser(temp_email, temp_password, temp_payInfo);
+                    user = new AdminUser(temp_email, temp_password);
                 } else {
-                    user = new RegisteredUser(temp_email, temp_password, temp_payInfo);
+                    user = new RegisteredUser(temp_email, temp_password);
                 }
             }
 
@@ -63,41 +62,47 @@ public class JDBC {
 
     }
 
-    public void sighUp(String email,String password,String paymentInfo){
-//        check if user with the email already exists
-        String checkString="Select COUNT(*) FROM users WHERE email=?";
-        try(PreparedStatement checkStatement=connection.prepareStatement(checkString)){
-            checkStatement.setString(1,email);
-//            System.out.println(checkStatement.toString());
-            ResultSet resultSet=checkStatement.executeQuery();
-            if(resultSet.next()){
+    public boolean sighUp(String email,String password,PaymentInfo paymentInfo){
 
-                if(resultSet.getInt("COUNT(*)")!=0){
-                    System.out.println("The email has been signed up by other user");
-                    return;
-                }
-            }
-            resultSet.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
 
-        String insertString="INSERT INTO users (email,password,paymentInfo) "+
-                            "VALUES(?,?,?)";
+        String insertString="INSERT INTO users (email,password) "+
+                            "VALUES(?,?)";
+
         try(PreparedStatement insertStatement=connection.prepareStatement(insertString)){
             insertStatement.setString(1,email);
             insertStatement.setString(2,password);
-            insertStatement.setString(3,paymentInfo);
 //            System.out.println(insertStatement.toString());
             insertStatement.execute();
 
+            addPayment(email,paymentInfo);
+
         }catch (SQLException e){
             e.printStackTrace();
+            return false;
         }
+        return true;
 
     }
 
-    public ArrayList<MovieInfo> allMovies(){
+    public boolean addPayment(String email,PaymentInfo paymentInfo){
+        String insertPayment="INSERT INTO paymentInfo (user_email,card_holder,card_number,cvv) " +
+                "VALUES(?,?,?,?)";
+        try (PreparedStatement paymentStatement=connection.prepareStatement(insertPayment)){
+            paymentStatement.setString(1,email);
+            paymentStatement.setString(2,paymentInfo.getCardHolderName());
+            paymentStatement.setString(3,paymentInfo.getCardNumber());
+            paymentStatement.setInt(4,paymentInfo.getCvv());
+
+
+            paymentStatement.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<MovieInfo> getAllMovies(){
         String allMovieStr="SELECT * FROM movies";
         ArrayList<MovieInfo> movies=new ArrayList<>();
 
@@ -280,7 +285,7 @@ public class JDBC {
 
     }
 
-    public ArrayList<Theater> getTheaterFromMovies(int movID){
+    public ArrayList<Theater> getTheaterPageData(int movID){
 
         String selectStr="SELECT DISTINCT id,name,address FROM shows as s, theater as t " +
                 "WHERE t.id=theater_id" +
@@ -303,7 +308,7 @@ public class JDBC {
     }
 
 
-    public ArrayList<Timestamp> getShowTimes(int theaterID,int movieID){
+    public ArrayList<Timestamp> getShowtimesPageData(int theaterID, int movieID){
 
         ArrayList<Timestamp> showTimes=new ArrayList<>();
         String showTimeStr="SELECT * FROM shows " +
@@ -321,6 +326,39 @@ public class JDBC {
             e.printStackTrace();
         }
         return showTimes;
+    }
+
+    public ArrayList<Seat> getSeatPageData(int movieID,int theaterID, Timestamp showTime){
+
+        String preparedStr="SELECT * FROM rooms as r, seats as s ,shows as sh" +
+                " WHERE sh.mov_id=?" +
+                " AND sh.theater_id=?" +
+                " AND sh.start_time=?" +
+                " AND r.id=sh.room_id" +
+                " AND r.id=s.room_id";
+        ArrayList<Seat> seats=new ArrayList<>();
+        try (PreparedStatement query=connection.prepareStatement(preparedStr)){
+            query.setInt(1,movieID);
+            query.setInt(2,theaterID);
+            query.setTimestamp(3,showTime);
+            System.out.println(query.toString());
+            ResultSet resultSet=query.executeQuery();
+            while (resultSet.next()){
+                int row=resultSet.getInt("rowNum");
+                int col=resultSet.getInt("colNum");
+                int roomNumber=resultSet.getInt("room_Number");
+                int roomID=resultSet.getInt("room_id");
+                boolean isTaken=resultSet.getBoolean("occupied");
+                Seat seat=new Seat(row,col);
+                seat.setRoomNum(roomNumber);
+                seat.setRoomID(roomID);
+                seat.setTaken(isTaken);
+                seats.add(seat);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return seats;
     }
 
 

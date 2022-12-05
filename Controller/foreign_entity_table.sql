@@ -65,6 +65,19 @@ CREATE TABLE manages(
 INSERT INTO manages(mgr_email,theater_id)
 VALUES('fbcharles747@gmail.com',1);
 
+DROP TABLE IF EXISTS paymentInfo;
+
+CREATE TABLE paymentInfo(
+    user_email VARCHAR(250),
+    card_holder VARCHAR(250),
+    card_number VARCHAR(250),
+    cvv INT,
+    FOREIGN KEY(user_email) REFERENCES users(email) ON DELETE CASCADE,
+    PRIMARY KEY(user_email,card_number)
+);
+
+
+
 
 
 

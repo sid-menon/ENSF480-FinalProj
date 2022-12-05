@@ -1,4 +1,9 @@
 package frontEnd;
+
+import controller.AppController;
+import controller.Order;
+import controller.PaymentInfo;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,13 +15,24 @@ public class PaymentPage extends JFrame implements ActionListener {
     JPanel newPanel;  
     JLabel nameLabel, cardLabel, exprLabel, cvvLabel;  
     final JTextField  textField1, textField2,textField3,textField4;  
- 
- 
-    PaymentPage()  
+    private AppController controller;
+    private Order order;
+
+    private PaymentPageMode pageMode;
+
+    public void setController(AppController controller) {
+        this.controller = controller;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    PaymentPage(PaymentPageMode mode)
     {     
         //create label for username   
 
-
+        this.pageMode=mode;
 
         JFrame frame = new JFrame("Make Payment");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,8 +90,7 @@ public class PaymentPage extends JFrame implements ActionListener {
         frame.add(textField1);   
         frame.add(cardLabel); 
         frame.add(textField2);
-        frame.add(exprLabel);
-        frame.add(textField3);   
+
         frame.add(cvvLabel);   
         frame.add(textField4);      
         frame.add(b1);           
@@ -87,10 +102,12 @@ public class PaymentPage extends JFrame implements ActionListener {
       
     public void actionPerformed(ActionEvent ae)    
     {  
-        String userValue = textField1.getText();//username from input        
-        String passValue = textField2.getText();//password from input        
+        String cardHolder = textField1.getText();//username from input
+        String cardNumber = textField2.getText();//password from input
+        int cvv=Integer.valueOf(textField4.getText());
+
           
-        if (userValue.length() < 30 && passValue.length() < 30) {  //check if in database ---- this is a placeholder
+        if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
               
             //MoviesPage page = new MoviesPage();  
               
@@ -98,8 +115,18 @@ public class PaymentPage extends JFrame implements ActionListener {
               
             //create a welcome label and set it to the new page  
             //JLabel wel_label = new JLabel("Select From Available movies");  
-            //page.getContentPane().add(wel_label); 
-            System.out.println("paid"); 
+            //page.getContentPane().add(wel_label);
+            PaymentInfo paymentInfo=new PaymentInfo(cardHolder,cardNumber,cvv);
+            controller.getUser().setPaymentInfo(paymentInfo);
+            if(pageMode.equals(PaymentPageMode.REGISTRATION)){
+                controller.signUp();
+
+            }
+
+
+
+
+
         }  
         else{  
             //show error message  

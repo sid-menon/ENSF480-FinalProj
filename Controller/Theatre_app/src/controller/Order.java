@@ -12,8 +12,16 @@ public class Order {
 
     private Seat seat;
 
+    private PaymentInfo paymentInfo;
 
 
+    public PaymentInfo getPaymentInfo() {
+        return paymentInfo;
+    }
+
+    public void setPaymentInfo(PaymentInfo paymentInfo) {
+        this.paymentInfo = paymentInfo;
+    }
 
     public MovieInfo getMovie() {
         return movie;

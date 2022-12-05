@@ -2,7 +2,6 @@ package controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class AppController {
 
@@ -10,6 +9,9 @@ public class AppController {
      private User user;
      private JDBC connection;
 
+
+
+//     connection and login function
 
      public AppController(){
           connection=new JDBC();
@@ -38,22 +40,10 @@ public class AppController {
      }
 
      public void signUp(){
-          Scanner scanner=new Scanner(System.in);
-          System.out.println("Please the email:\n");
-          String email=scanner.nextLine();
-          System.out.println("Please enter the password:\n");
-          String password=scanner.nextLine();
-          System.out.println("Please provide payment information");
-          String payInfo=scanner.nextLine();
-
-          scanner.close();
-          connection.sighUp(email,password,payInfo);
-
+          connection.sighUp(user.getEmail(),user.getPassword(),user.getPaymentInfo());
      }
 
-     public ArrayList<MovieInfo> allMovies(){
-          return connection.allMovies();
-     }
+
      public void searchMov(){
 
      }
@@ -62,10 +52,12 @@ public class AppController {
           return user;
      }
 
-     private void setUser(User user){
+     public void setUser(User user){
           this.user=user;
      }
 
+
+//     admin specific function
      public boolean isAdmin(){
           return (user.getUserType().compareTo("admin")==0);
      }
@@ -86,28 +78,44 @@ public class AppController {
 
 
      }
-
-     public ArrayList<Room> getAvailableRooms(Theater theater){
-          return connection.getTheaterRooms(theater.getId());
-     }
-
      public void createShow(MovieInfo movie,Theater theater,Room room){
           if(!user.getUserType().equals("admin")) return;
           connection.arrangeShow(movie,theater,room);
      }
 
 
-     public ArrayList<Theater> movieToTheater(MovieInfo movie){
-          return connection.getTheaterFromMovies(movie.getId());
+
+
+
+
+
+//     page specific for guest and ordinary user
+     public ArrayList<Room> getAvailableRooms(Theater theater){
+          return connection.getTheaterRooms(theater.getId());
      }
 
-     public ArrayList<Timestamp> getShowTimes(Order order){
-          return connection.getShowTimes(order.getTheater().getId(),order.getMovie().getId());
+
+     public ArrayList<Theater> getTheaterPageData(MovieInfo movie){
+          return connection.getTheaterPageData(movie.getId());
+     }
+
+     public ArrayList<Timestamp> getShowtimesPageData(Order order){
+          return connection.getShowtimesPageData(order.getTheater().getId(),order.getMovie().getId());
+     }
+
+     public  ArrayList<Seat> getSeatPageData(Order order){
+          int movieID=order.getMovie().getId();
+          int theaterID=order.getTheater().getId();
+          Timestamp showTime=order.getShowTime();
+          return connection.getSeatPageData(movieID,theaterID,showTime);
      }
 
 
 
-
+// general purpose function
+     public ArrayList<MovieInfo> getAllMovies(){
+          return connection.getAllMovies();
+     }
 
 
 

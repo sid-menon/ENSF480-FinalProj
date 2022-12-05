@@ -2,11 +2,13 @@ package frontEnd;
 
 import controller.AppController;
 import controller.Order;
+import controller.Seat;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 class SeatsPage extends JFrame implements ActionListener //list of Seats from user to choose from 
 { 
@@ -62,8 +64,8 @@ class SeatsPage extends JFrame implements ActionListener //list of Seats from us
 
 
 
-        String Seats[] ={"Seats1", "Seats2"}; //placeholder --use values from database
-        SeatsList = new JList<>(Seats);
+        ArrayList<Seat> seats=controller.getSeatPageData(order); //placeholder --use values from database
+        SeatsList = new JList<>(seats.toArray());
         
         SeatsList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 
@@ -85,8 +87,13 @@ class SeatsPage extends JFrame implements ActionListener //list of Seats from us
         String userValue = textField1.getText();//username from input        
           
         if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
+            PaymentPage page;
+            if(controller.getUser()==null){
+                page=new PaymentPage(PaymentPageMode.TICKET_ORDER_VISITOR);
+            }else{
+                page=new PaymentPage(PaymentPageMode.TICKET_ORDER_USER);
+            }
 
-            PaymentPage page = new PaymentPage();  
               
             page.setVisible(true);  
               

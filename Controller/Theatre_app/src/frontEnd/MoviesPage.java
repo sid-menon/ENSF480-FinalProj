@@ -54,7 +54,7 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
         movieLabel.setText("Which Movie Would you like to See?");      //set label value for textField1
 
 
-        movieList = new JList<>(controller.allMovies().toArray());
+        movieList = new JList<>(controller.getAllMovies().toArray());
         
         movieList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 

@@ -119,7 +119,7 @@ public class Admin_page extends JFrame{
 
 
     private void updateMoviesList(DefaultListModel dlm){
-        ArrayList<MovieInfo> movies=controller.allMovies();
+        ArrayList<MovieInfo> movies=controller.getAllMovies();
         for(MovieInfo movieInfo:movies){
             dlm.addElement(movieInfo);
         }

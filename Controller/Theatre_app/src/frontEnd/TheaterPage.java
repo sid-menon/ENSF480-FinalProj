@@ -55,7 +55,7 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
         theaterLabel = new JLabel();  
         theaterLabel.setText("Which theater Would you like to See?");      //set label value for textField1
 
-        ArrayList<Theater> theaters=controller.movieToTheater(order.getMovie());
+        ArrayList<Theater> theaters=controller.getTheaterPageData(order.getMovie());
         theaterList = new JList<>(theaters.toArray());
 
         

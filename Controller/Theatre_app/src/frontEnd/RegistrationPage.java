@@ -1,4 +1,8 @@
 package frontEnd;
+import controller.AppController;
+import controller.RegisteredUser;
+import controller.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,12 +14,12 @@ public class RegistrationPage extends JFrame implements ActionListener {
     JPanel newPanel;  
     JLabel nameLabel, cardLabel;  
     final JTextField  textField1, textField2;  
- 
- 
-    RegistrationPage()  
+
+    private AppController controller;
+    RegistrationPage(AppController controller)
     {     
         //create label for username   
-
+        this.controller=controller;
 
 
         JFrame frame = new JFrame("Make Payment");
@@ -78,6 +82,13 @@ public class RegistrationPage extends JFrame implements ActionListener {
         String passValue = textField2.getText();//password from input        
           
         if (userValue.length() < 30 && passValue.length() < 30) {  //check if username not in database database ---- this is a placeholder
+
+            User newUser=new RegisteredUser(userValue,passValue);
+            controller.setUser(newUser);
+            PaymentPage page=new PaymentPage(PaymentPageMode.REGISTRATION);
+            page.setController(controller);
+
+
 
             //add new Registered user to the data base 
             System.out.println("account created"); 
