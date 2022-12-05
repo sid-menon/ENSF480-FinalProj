@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!include style.puml
+
+box User MODEL_COLOR_T1
+participant ":RegisteredUser" as RegisteredUser MODEL_COLOR
+participant ":Seats" as Seats MODEL_COLOR
+end box
+
+box Database STORAGE_COLOR_T1
+participant ":Database" as Database STORAGE_COLOR
+end box
+
+RegisteredUser->Seats++: View all available seats
+    Seats->Database++:get all available seats
+    Database-->Seats--: all available seats
+Seats-->RegisteredUser--: display all available seats
+
+RegisteredUser->Seats++: reserve from the available seats
+    Seats->Database++: reserve the seats
+    Database-->Seats--
+Seats-->RegisteredUser--:reserve successful
+@enduml

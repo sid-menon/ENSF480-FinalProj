@@ -1,0 +1,48 @@
+@startuml
+!include style.puml
+
+box Ticket App LOGIC_COLOR_T1
+    participant ":User" as user LOGIC_COLOR
+    participant ":PaymentPage" as paymentPage LOGIC_COLOR
+    participant ":Receipt" as receipt LOGIC_COLOR
+    participant ":Ticket" as ticket LOGIC_COLOR
+    participant ":Email" as email LOGIC_COLOR
+end box
+
+box Backend MODEL_COLOR_T1
+    participant ":Database" as database MODEL_COLOR
+end box
+
+activate user
+user -> paymentPage: User wants to make payment
+activate paymentPage
+
+paymentPage -> paymentPage: User keys in payment information
+activate paymentPage
+deactivate paymentPage
+
+paymentPage -> database: User makes payment
+deactivate paymentPage
+activate database
+
+database -> receipt: generate receipt
+activate receipt
+receipt --> database: receipt
+deactivate receipt
+
+database -> ticket: generate ticket
+activate ticket
+ticket --> database: receipt
+deactivate ticket
+
+database -> email: send ticket
+activate email
+deactivate email
+
+database --> user: receipt
+deactivate database
+
+[<-- user: User leaves app
+deactivate user
+
+@enduml

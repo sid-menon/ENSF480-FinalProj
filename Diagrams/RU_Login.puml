@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!include style.puml
+box Frontend LOGIC_COLOR_T1
+participant ":RegisteredUser" as ru LOGIC_COLOR
+participant ":LoginForm" as loginForm LOGIC_COLOR
+end box
+
+box Database MODEL_COLOR_T1
+participant ":Database" as database MODEL_COLOR
+end box
+
+[->ru
+
+activate ru
+ru -> loginForm: input login details
+activate loginForm
+
+loginForm -> database: login(username, password)
+deactivate loginForm
+activate database
+
+database --> ru:
+deactivate database
+
+[<-- ru
+deactivate ru
+@enduml
