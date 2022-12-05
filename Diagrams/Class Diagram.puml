@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeFontColor white
+
+Package Model <<Rectangle>>{
+
+Class User <<entity>>
+Class RegisteredUser <<entity>>
+Class Movie <<entity>>
+Class Theater <<entity>>
+Class ShowRoom <<entity>>
+Class ShowTime <<entity>>
+Class Seats <<entity>>
+Class Ticket <<entity>>
+Class Payment <<entity>>
+Class AppController <<control>>
+}
+
+RegisteredUser .down.|> User
+
+User "1" o-down-> "0..*" Payment
+User "1" o-down-> "1" Ticket
+
+Payment "1" --> "1..*" Ticket
+
+Theater "1" o-right-> "*" RegisteredUser
+Theater "1" o-left-> "*" Movie
+Theater "1" o-down-> "*" ShowRoom
+
+Movie "1" -> "1" ShowRoom
+
+ShowRoom "1" o--> "0..*" ShowTime
+ShowRoom "1" o-down-> "20" Seats
+
+Seats "1" -down-> "1" Ticket
+@enduml
