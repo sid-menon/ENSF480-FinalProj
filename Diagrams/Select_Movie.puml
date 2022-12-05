@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!include style.puml
+box Frontend LOGIC_COLOR_T1
+participant ":User" as user LOGIC_COLOR
+participant ":Movie" as movie LOGIC_COLOR
+participant ":Theatre" as theatre LOGIC_COLOR
+participant ":Showtime" as showtime LOGIC_COLOR
+participant ":Seat" as seat LOGIC_COLOR
+end box
+
+box Backend MODEL_COLOR_T1
+participant ":Database" as database MODEL_COLOR
+end box
+
+activate user
+user -> movie: searches
+activate movie
+
+movie -> database: getMovies()
+activate database
+
+database --> movie: movies
+deactivate database
+
+movie -> theatre: select theatre
+deactivate movie
+activate theatre
+
+theatre -> database: getTheatres()
+activate database
+
+database --> theatre: theatres
+deactivate database
+
+theatre -> showtime: select showtime
+deactivate theatre
+activate showtime
+
+showtime -> database: getShowtimes()
+activate database
+
+database --> showtime: showtimes
+deactivate database
+
+showtime -> seat: select seat
+deactivate showtime
+activate seat
+
+seat -> database: getSeats()
+activate database
+
+database --> seat: seats
+deactivate database
+
+seat --> user
+deactivate seat
+deactivate user
+@enduml
