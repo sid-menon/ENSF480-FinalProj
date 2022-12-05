@@ -25,6 +25,7 @@ CREATE TABLE seats(
 -- reservation is for registered user only
 DROP TABLE IF EXISTS reservations;
 CREATE TABLE reservations(
+    id INT AUTO_INCREMENT PRIMARY KEY,
     customer_email VARCHAR(250),
     mov_id INT,
     theater_id INT,

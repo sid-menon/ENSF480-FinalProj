@@ -374,9 +374,46 @@ public class JDBC {
 
 
 //    CRUD for reservations table
-//    public ArrayList<Order> getAllReservationByUser(String email){
-//
-//    }
+    public ArrayList<Order> getAllReservationByUser(String email){
+        String str="SELECT * FROM reservations WHERE customer_email=?";
+        ArrayList<Order> orders=new ArrayList<>();
+        try (PreparedStatement statement= connection.prepareStatement(str)){
+            Order order=new Order();
+            statement.setString(1,email);
+            ResultSet resultSet=statement.executeQuery();
+           while(resultSet.next()){
+               int movID=resultSet.getInt("mov_id");
+               MovieInfo movie=getMovieByID(movID);
+               order.setMovie(movie);
+
+
+               int theaterID= resultSet.getInt("theater_id");
+               Theater theater=getTheaterByID(theaterID);
+               order.setTheater(theater);
+
+               int roomNum=resultSet.getInt("room_Number");
+               int roomID= resultSet.getInt("room_id");
+               int row=resultSet.getInt("rowNum");
+               int col=resultSet.getInt("colNum");
+               Timestamp start=resultSet.getTimestamp("startTime");
+               order.setShowTime(start);
+
+               int orderID=resultSet.getInt("id");
+               order.setOrderID(orderID);
+
+               Seat seat=new Seat(row,col);
+               seat.setRoomID(roomID);
+               seat.setRoomNum(roomNum);
+               order.setSeat(seat);
+               orders.add(order);
+           }
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return orders;
+    }
     public void insertIntoReservations(String email,int movID,int theaterID,int roomID,int roomNum,int row,int col,Timestamp start){
         String insertStr="INSERT INTO reservations (customer_email,mov_id,theater_id,room_id,room_Number,rowNum,colNum,startTime) " +
                 "VALUES (?,?,?,?,?,?,?,?)";
@@ -394,6 +431,17 @@ public class JDBC {
         }catch (SQLException e){
             e.printStackTrace();
         }
+    }
+    public void deleteReservationByID(int id){
+        String removeStr="DELETE FROM reservations WHERE id=?";
+        try (PreparedStatement statement= connection.prepareStatement(removeStr)){
+            statement.setInt(1,id);
+            statement.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -439,16 +487,17 @@ public class JDBC {
 
 //    CRUD for seats table
 
-    public void occupySeat(int roomID,int row,int col){
+    public void setSeatOccupied(int roomID, int row, int col, boolean isTaken){
         String str="UPDATE seats" +
-                " SET occupied=true" +
+                " SET occupied=?" +
                 " WHERE room_id=?" +
                 " AND rowNum=?" +
                 " AND colNum=?";
         try(PreparedStatement statement= connection.prepareStatement(str)){
-            statement.setInt(1,roomID);
-            statement.setInt(2,row);
-            statement.setInt(3,col);
+            statement.setBoolean(1,isTaken);
+            statement.setInt(2,roomID);
+            statement.setInt(3,row);
+            statement.setInt(4,col);
             statement.execute();
 
         }catch (SQLException e){
@@ -456,7 +505,8 @@ public class JDBC {
         }
     }
 
-//    CRUD for payment
+//    CRUD for payment table
+
     public PaymentInfo getPaymentInfoByEmail(String email){
 
         String readStr="SELECT * FROM paymentInfo WHERE user_email=?";

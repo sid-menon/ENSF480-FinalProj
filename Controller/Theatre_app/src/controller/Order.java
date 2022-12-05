@@ -10,6 +10,7 @@ import java.sql.Timestamp;
  *        Submission Date: Dec 5 2022
  */
 public class Order {
+    private int orderID;
     private MovieInfo movie;
     private Theater theater;
 
@@ -68,5 +69,21 @@ public class Order {
 
     public void setSeat(Seat seat) {
         this.seat = seat;
+    }
+
+    public String toString(){
+        return ("Movie Name: "+movie.getMovieName()+"\n" +
+                " Theater: "+theater.getName()+"\n" +
+                " Room#: "+seat.getRoomNum()+
+                "showTime: "+showTime);
+
+    }
+
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 }

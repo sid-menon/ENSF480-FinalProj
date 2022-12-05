@@ -34,8 +34,7 @@ public class Swing_Login extends JFrame{
                     setVisible(false);
 //                    vanish if log in successful
                 } else if (success) {
-
-                    new MoviesPage(controller);
+                    new ViewTickets(controller);
                     setVisible(false);
                 }else{
                     JOptionPane.showMessageDialog(null,"user email or password is wrong","fail to log in",JOptionPane.ERROR_MESSAGE);

@@ -90,6 +90,7 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
             JLabel wel_label = new JLabel("Select From Available shwotimes");  
             page.getContentPane().add(wel_label);  
             System.out.println("showtimes selected");
+            dispose();
         }  
         else{  
             //show error message  

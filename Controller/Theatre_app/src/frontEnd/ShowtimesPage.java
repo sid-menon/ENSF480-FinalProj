@@ -92,6 +92,7 @@ class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes
             page.getContentPane().add(wel_label);  
             System.out.println("Seats selected");
             //get rid of available seats from database
+            dispose();
         }  
         else{  
             //show error message  

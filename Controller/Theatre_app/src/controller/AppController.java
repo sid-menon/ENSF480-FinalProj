@@ -124,7 +124,7 @@ public class AppController {
      }
 
 
-
+// user reservation
      public void userReserve(Order order){
 //          insert the order into the reservation table
           MovieInfo movie=order.getMovie();
@@ -141,8 +141,23 @@ public class AppController {
                   order.getShowTime()
           );
 //          change the seat to occupied once the reservation is confirmed
-          connection.occupySeat(seat.getRoomID(), seat.getRow(), seat.getCol());
+          connection.setSeatOccupied(seat.getRoomID(), seat.getRow(), seat.getCol(),true);
 
+     }
+
+     public void deleteReservation(Order order){
+//          delete the reservation
+          connection.deleteReservationByID(order.getOrderID());
+//          change the seat status
+          Seat orderedSeat=order.getSeat();
+          connection.setSeatOccupied(orderedSeat.getRoomID(),
+                  orderedSeat.getRow(), orderedSeat.getCol(), false);
+
+
+     }
+
+     public ArrayList<Order> getReservationsByUser(User user){
+          return connection.getAllReservationByUser(user.getEmail());
      }
 
 

@@ -102,6 +102,7 @@ class SeatsPage extends JFrame implements ActionListener //list of Seats from us
                 System.out.println("Seats selected");
                 setVisible(false);
                 page.setVisible(true);
+                dispose();
             }
             else JOptionPane.showMessageDialog(null,"Please select a seat","error",JOptionPane.ERROR_MESSAGE);
 
