@@ -1,0 +1,9 @@
+@startuml
+start
+:Studio sends movie news to theatre;
+
+:Theater sends news to Registered Users before public announcement;
+
+
+stop
+@enduml
