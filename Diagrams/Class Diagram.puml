@@ -16,7 +16,6 @@ Class ShowTime <<entity>>
 Class Seats <<entity>>
 Class Ticket <<entity>>
 Class Payment <<entity>>
-Class AppController <<control>>
 }
 
 RegisteredUser .down.|> User
