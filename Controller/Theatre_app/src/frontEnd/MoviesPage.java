@@ -89,6 +89,7 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
             JLabel wel_label = new JLabel("Select From Available Theaters");  
             page.getContentPane().add(wel_label);  
             System.out.println("movie selected");
+            dispose();
         }  
         else{  
             //show error message  

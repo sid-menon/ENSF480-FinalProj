@@ -143,6 +143,7 @@ public class PaymentPage extends JFrame implements ActionListener {
 
                 if(JOptionPane.showConfirmDialog(null,confirmation,"order confirmation",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
                     controller.userReserve(order);
+                    dispose();
                 }
 //                change the seat status
 

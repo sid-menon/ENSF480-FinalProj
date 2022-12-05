@@ -18,6 +18,12 @@
               <text value="Cancel ticket"/>
             </properties>
           </component>
+          <component id="f740d" class="javax.swing.JButton" binding="browseMovies">
+            <constraints/>
+            <properties>
+              <text value="browse movies"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <scrollpane id="756d0">
