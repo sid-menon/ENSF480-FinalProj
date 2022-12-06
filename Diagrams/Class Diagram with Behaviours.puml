@@ -8,26 +8,26 @@ skinparam classAttributeFontColor white
 Package Model <<Rectangle>>{
 show "{abstract}\nUser" fields
 show RegisteredUser fields
-show Movie fields
+show MovieInfo fields
 show Theater fields
-show ShowRoom fields
+show Room fields
 show ShowTime fields
 show Seat fields
-show Ticket fields
-show Payment fields
+show Order fields
+show PaymentInfo fields
 
-show ShowRoom method
+show Room method
 
 
 Class "{abstract}\nUser"
 Class RegisteredUser
-Class Movie
+Class MovieInfo
 Class Theater
-Class ShowRoom
+Class Room
 Class ShowTime
 Class Seat
-Class Ticket
-Class Payment
+Class Order
+Class PaymentInfo
 
 class "{abstract}\nUser" {
     # email: String
@@ -39,7 +39,7 @@ class "{abstract}\nUser" {
 class RegisteredUser {
 }
 
-class Movie {
+class MovieInfo {
     - id: int
     - movieName: String
     - dateOfAnnounce: Date
@@ -52,7 +52,7 @@ class Theater {
     - address: String
 }
 
-class ShowRoom {
+class Room {
     - id: int
     - theaterID: int
     - roomNumber: int
@@ -74,19 +74,19 @@ class ShowTime {
     - time: Timestamp
 }
 
-class Payment {
+class PaymentInfo {
     - cardHolderName: String
     - cardNumber: String
     - cvv: int
 }
 
-class Ticket {
-    - movie: Movie
+class Order {
+    - movie: MovieInfo
     - theater: Theater
     - showTime: ShowTime
-    - showRoom: ShowRoom
+    - showRoom: Room
     - seat: Seats
-    - payment: Payment
+    - payment: PaymentInfo
 }
 
 legend

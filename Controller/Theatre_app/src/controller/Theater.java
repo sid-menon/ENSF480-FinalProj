@@ -11,21 +11,25 @@ public class Theater {
     private String name;
     private String address;
 
-    public Theater(int id, String name, String address) {
+    public Theater(int id, String name, String address) //constructor
+    {
         this.id = id;
         this.name = name;
         this.address = address;
     }
 
-    public int getId() {
+    public int getId() //getter for ID
+    {
         return id;
     }
 
-    public String getName() {
+    public String getName()//getter for name
+    {
         return name;
     }
 
-    public String getAddress() {
+    public String getAddress() //getter for addresss
+    {
         return address;
     }
 
