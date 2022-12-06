@@ -9,30 +9,30 @@ Package Model <<Rectangle>>{
 
 Class User <<entity>>
 Class RegisteredUser <<entity>>
-Class Movie <<entity>>
+Class MovieInfo <<entity>>
 Class Theater <<entity>>
-Class ShowRoom <<entity>>
+Class Room <<entity>>
 Class ShowTime <<entity>>
 Class Seat <<entity>>
-Class Ticket <<entity>>
-Class Payment <<entity>>
+Class Order <<entity>>
+Class PaymentInfo <<entity>>
 }
 
 RegisteredUser .down.|> User
 
-User "1" o-down-> "0..*" Payment
-User "1" o-down-> "1" Ticket
+User "1" o-down- "0..*" PaymentInfo
+User "1" o-down- "1" Order
 
-Payment "1" --> "1..*" Ticket
+PaymentInfo "1" -- "1..*" Order
 
-Theater "1" o-right-> "*" RegisteredUser
-Theater "1" o-left-> "*" Movie
-Theater "1" o-down-> "*" ShowRoom
+Theater "1" o-right- "*" RegisteredUser
+Theater "1" o-left- "*" MovieInfo
+Theater "1" o-down- "*" Room
 
-Movie "1" -> "1" ShowRoom
+MovieInfo "1" - "1" Room
 
-ShowRoom "1" o--> "0..*" ShowTime
-ShowRoom "1" o-down-> "20" Seat
+Room "1" o-- "0..*" ShowTime
+Room "1" o-down- "20" Seat
 
-Seat "1" -down-> "1" Ticket
+Seat "1" -down- "1" Order
 @enduml
