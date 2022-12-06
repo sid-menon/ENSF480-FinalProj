@@ -13,7 +13,7 @@ public class Seat
 	private boolean isTaken;
 	
 
-	public Seat(int row, int col)
+	public Seat(int row, int col) //constructor
     {
 		this.row = row;
 		this.col = col;
@@ -22,7 +22,7 @@ public class Seat
 	}
 	
 	
-	boolean occupySeat(boolean isEarly) 
+	boolean occupySeat(boolean isEarly) //when the seat is occupied
     {
 		if (isTaken == false) {
 			if (isEarly == true) 
@@ -36,7 +36,7 @@ public class Seat
 		}
 	}
 	
-	boolean unoccupySeat() 
+	boolean unoccupySeat() //when the seat is unoccupied
     {
 		if (isTaken == true) 
         {
@@ -49,29 +49,33 @@ public class Seat
 		}
 	}
 	
-	public int getRow()
+	public int getRow() //getter for row
     {
 		return row;
 	}
 
-	public int getCol()
+	public int getCol() //getter for collumns
     {
 		return col;
 	}
 
-	public int getRoomID() {
+	public int getRoomID() //getter for roomID
+	{ 
 		return roomID;
 	}
 
-	public void setRoomID(int roomID) {
+	public void setRoomID(int roomID) //setter
+	{
 		this.roomID = roomID;
 	}
 
-	public int getRoomNum() {
+	public int getRoomNum() //getter
+	{
 		return roomNum;
 	}
 
-	public void setRoomNum(int roomNum) {
+	public void setRoomNum(int roomNum) //setter
+	{
 		this.roomNum = roomNum;
 	}
 
@@ -80,7 +84,8 @@ public class Seat
 		return isEarlyRegistration;
 	}
 
-	public void setTaken(boolean taken) {
+	public void setTaken(boolean taken) //setter
+	{
 		isTaken = taken;
 	}
 
