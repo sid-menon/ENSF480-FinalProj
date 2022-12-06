@@ -1,4 +1,11 @@
 package frontEnd;
+/**
+ *        File Name: Admin_page.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Siddharth Menon and Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 import controller.AppController;
 import controller.RegisteredUser;
 import controller.User;
@@ -29,23 +36,12 @@ public class RegistrationPage extends JFrame implements ActionListener {
         frame.setMinimumSize(new Dimension(600,450));
 
         Box titleText = Box.createHorizontalBox();
-        //JLabel title = new JLabel("<html><span style='color: black;'>Showtimes Availables</span></html>");
-        //title.setFont (title.getFont().deriveFont(32.0f));
-        //JLabel version = new JLabel("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1.0<br>Created by Luke Carr</html>");
-        //JLabel slogan = new JLabel("<html>Full Potential<br>Minimal Knowledge</html>");
-        //titleText.add(version);
-        //titleText.add(title);
-        //titleText.add(slogan);
+
         titleText.setAlignmentX(frame.getWidth() / 2);
 
-        //Box inputContent = Box.createHorizontalBox();
-        //JTextArea code = new JTextArea(35,65);
-        //code.setEditable(true);
-        //code.setBorder(null);
-        //inputContent.add(code);
 
         frame.add(titleText);
-        //frame.add(inputContent);
+
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -59,7 +55,7 @@ public class RegistrationPage extends JFrame implements ActionListener {
           
         textField2 = new JTextField(15);
 
-        //create login button  
+        //create submit button  
         b1 = new JButton("Submit");  
           
         
@@ -81,7 +77,7 @@ public class RegistrationPage extends JFrame implements ActionListener {
         String userValue = textField1.getText();//username from input        
         String passValue = textField2.getText();//password from input        
           
-        if (userValue.length() < 30 && passValue.length() < 30) {  //check if username not in database database ---- this is a placeholder
+        if (userValue.length() < 30 && passValue.length() < 30) {  //check if sizes are less than 30
 
             User newUser=new RegisteredUser(userValue,passValue);
             controller.setUser(newUser);
