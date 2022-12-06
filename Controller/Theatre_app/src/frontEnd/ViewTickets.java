@@ -6,6 +6,7 @@ import controller.Order;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ViewTickets extends JFrame{
@@ -13,6 +14,7 @@ public class ViewTickets extends JFrame{
     private JButton cancelTicketButton;
     private JList ticketList;
     private JButton browseMovies;
+    private JButton logOutButton;
 
     private AppController controller;
 
@@ -48,6 +50,17 @@ public class ViewTickets extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new MoviesPage(controller);
+            }
+        });
+        logOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Runtime.getRuntime().exec("java -jar Theatre_App.jar");
+                    System.exit(0);
+                } catch (IOException ioException){
+                    ioException.printStackTrace();
+                }
             }
         });
     }

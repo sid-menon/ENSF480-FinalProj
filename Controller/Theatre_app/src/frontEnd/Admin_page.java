@@ -12,6 +12,7 @@ import controller.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Admin_page extends JFrame{
@@ -26,6 +27,7 @@ public class Admin_page extends JFrame{
     private JLabel nextAvailableTime;
     private JButton newRoom;
     private JList movieList;
+    private JButton logOutButton;
 
 
     public Admin_page(AppController controller) {
@@ -134,6 +136,18 @@ public class Admin_page extends JFrame{
 
             }
 
+        });
+        logOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Runtime.getRuntime().exec("java -jar Theatre_App.jar");
+                    System.exit(0);
+                } catch (IOException ioException){
+                    ioException.printStackTrace();
+                }
+
+            }
         });
     }
 

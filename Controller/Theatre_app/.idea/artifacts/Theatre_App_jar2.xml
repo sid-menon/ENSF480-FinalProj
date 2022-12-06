@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Theatre_App:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/Theatre_App_jar2</output-path>
+    <root id="archive" name="Theatre_App.jar">
+      <element id="module-output" name="Theatre_App" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../../../Program Files/MySQL/mysql-connector-j-8.0.31/mysql-connector-j-8.0.31.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

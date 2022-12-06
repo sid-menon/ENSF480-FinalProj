@@ -24,6 +24,13 @@
               <text value="browse movies"/>
             </properties>
           </component>
+          <component id="2a331" class="javax.swing.JButton" binding="logOutButton">
+            <constraints/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <text value="Log out"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <scrollpane id="756d0">
