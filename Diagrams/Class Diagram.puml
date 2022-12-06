@@ -13,7 +13,7 @@ Class Movie <<entity>>
 Class Theater <<entity>>
 Class ShowRoom <<entity>>
 Class ShowTime <<entity>>
-Class Seats <<entity>>
+Class Seat <<entity>>
 Class Ticket <<entity>>
 Class Payment <<entity>>
 }
@@ -32,7 +32,7 @@ Theater "1" o-down-> "*" ShowRoom
 Movie "1" -> "1" ShowRoom
 
 ShowRoom "1" o--> "0..*" ShowTime
-ShowRoom "1" o-down-> "20" Seats
+ShowRoom "1" o-down-> "20" Seat
 
-Seats "1" -down-> "1" Ticket
+Seat "1" -down-> "1" Ticket
 @enduml
