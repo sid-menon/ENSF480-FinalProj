@@ -1,10 +1,15 @@
 package frontEnd;
+/**
+ *        File Name: Admin_page.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Siddharth Menon
+ *        Submission Date: Dec 5 2022
+ */
 import javax.swing.*;
   
-//create NewPage class to create a new page on which user will navigate  
-class ErrorPage extends JFrame  
+class ErrorPage extends JFrame  //eror window when users make invalid inputs
 {  
-    //constructor  
     ErrorPage()  
     {  
         setDefaultCloseOperation(javax.swing.  
