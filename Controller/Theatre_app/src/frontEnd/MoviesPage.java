@@ -1,4 +1,11 @@
 package frontEnd;
+/**
+ *        File Name: Admin_page.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Siddharth Menon
+ *        Submission Date: Dec 5 2022
+ */
 
 import controller.AppController;
 import controller.MovieInfo;
@@ -31,21 +38,14 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
         Box titleText = Box.createHorizontalBox();
         JLabel title = new JLabel("<html><span style='color: black;'>Movie Availables</span></html>");
         title.setFont (title.getFont().deriveFont(32.0f));
-        //JLabel version = new JLabel("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1.0<br>Created by Luke Carr</html>");
-        //JLabel slogan = new JLabel("<html>Full Potential<br>Minimal Knowledge</html>");
-        //titleText.add(version);
+      
         titleText.add(title);
-        //titleText.add(slogan);
+       
         titleText.setAlignmentX(frame.getWidth() / 2);
 
-        //Box inputContent = Box.createHorizontalBox();
-        //JTextArea code = new JTextArea(35,65);
-        //code.setEditable(true);
-        //code.setBorder(null);
-        //inputContent.add(code);
 
         frame.add(titleText);
-        //frame.add(inputContent);
+       
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -73,19 +73,18 @@ class MoviesPage extends JFrame implements ActionListener //list of movies from 
 
     public void actionPerformed(ActionEvent ae)    
     {  
-        String userValue = textField1.getText();//username from input        
+        String userValue = textField1.getText();//Movie name from input        
           
-        if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
+        if (ae.getSource().equals(b1)) {  //check if movie name is in database
 
             Order order=new Order();
             order.setMovie((MovieInfo) movieList.getSelectedValue());
               
-            TheaterPage page = new TheaterPage(controller,order);
+            TheaterPage page = new TheaterPage(controller,order); //if movie is in database send to select from theaters
 
 
             page.setVisible(true);  
               
-            //create a welcome label and set it to the new page  
             JLabel wel_label = new JLabel("Select From Available Theaters");  
             page.getContentPane().add(wel_label);  
             System.out.println("movie selected");
