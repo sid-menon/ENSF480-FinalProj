@@ -1,4 +1,11 @@
 package frontEnd;
+/**
+ *        File Name: Admin_page.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Siddharth Menon and Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 
 import controller.AppController;
 import controller.Order;
@@ -24,7 +31,6 @@ public class PaymentPage extends JFrame implements ActionListener {
 
     PaymentPage(PaymentPageMode mode,AppController controller,Order order)
     {     
-        //create label for username   
 
         this.pageMode=mode;
         this.order=order;
@@ -37,23 +43,13 @@ public class PaymentPage extends JFrame implements ActionListener {
         frame.setMinimumSize(new Dimension(600,450));
 
         Box titleText = Box.createHorizontalBox();
-        //JLabel title = new JLabel("<html><span style='color: black;'>Showtimes Availables</span></html>");
-        //title.setFont (title.getFont().deriveFont(32.0f));
-        //JLabel version = new JLabel("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1.0<br>Created by Luke Carr</html>");
-        //JLabel slogan = new JLabel("<html>Full Potential<br>Minimal Knowledge</html>");
-        //titleText.add(version);
-        //titleText.add(title);
-        //titleText.add(slogan);
+     
         titleText.setAlignmentX(frame.getWidth() / 2);
 
-        //Box inputContent = Box.createHorizontalBox();
-        //JTextArea code = new JTextArea(35,65);
-        //code.setEditable(true);
-        //code.setBorder(null);
-        //inputContent.add(code);
+        
 
         frame.add(titleText);
-        //frame.add(inputContent);
+      
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -100,7 +96,7 @@ public class PaymentPage extends JFrame implements ActionListener {
           
           
         
-        b1.addActionListener(this);     
+        b1.addActionListener(this); //make button an action listener     
     }  
       
     public void actionPerformed(ActionEvent ae)    
@@ -108,15 +104,8 @@ public class PaymentPage extends JFrame implements ActionListener {
 
 
           
-        if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
+        if (ae.getSource().equals(b1)) {  //check if values are in in database
               
-            //MoviesPage page = new MoviesPage();  
-              
-            //page.setVisible(true);  
-              
-            //create a welcome label and set it to the new page  
-            //JLabel wel_label = new JLabel("Select From Available movies");  
-            //page.getContentPane().add(wel_label);
 
             if(pageMode.equals(PaymentPageMode.REGISTRATION)){
                 String cardHolder = textField1.getText();//username from input
@@ -157,7 +146,7 @@ public class PaymentPage extends JFrame implements ActionListener {
         }  
         else{  
             //show error message  
-            JOptionPane.showMessageDialog(new JFrame(), "please enter valid username and password", "INVALID USERNAME/PASSWORD", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "please enter valid payment information", "INVALID PAYMENT INFO", JOptionPane.ERROR_MESSAGE);
         }  
     } 
 }
