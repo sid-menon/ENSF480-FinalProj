@@ -1,4 +1,11 @@
 package frontEnd;
+/**
+ *        File Name: ShowTimePage.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Siddharth Menon and Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 
 import controller.AppController;
 import controller.Order;
@@ -36,21 +43,13 @@ class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes
         Box titleText = Box.createHorizontalBox();
         JLabel title = new JLabel("<html><span style='color: black;'>Showtimes Availables</span></html>");
         title.setFont (title.getFont().deriveFont(32.0f));
-        //JLabel version = new JLabel("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1.0<br>Created by Luke Carr</html>");
-        //JLabel slogan = new JLabel("<html>Full Potential<br>Minimal Knowledge</html>");
-        //titleText.add(version);
+      
         titleText.add(title);
-        //titleText.add(slogan);
         titleText.setAlignmentX(frame.getWidth() / 2);
 
-        //Box inputContent = Box.createHorizontalBox();
-        //JTextArea code = new JTextArea(35,65);
-        //code.setEditable(true);
-        //code.setBorder(null);
-        //inputContent.add(code);
+       
 
         frame.add(titleText);
-        //frame.add(inputContent);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -58,7 +57,7 @@ class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes
         ShowtimesLabel = new JLabel();  
         ShowtimesLabel.setText("Which Showtimes Would you like to See?");      //set label value for textField1
 
-        ArrayList<Timestamp> showTimes=controller.getShowtimesPageData(order); //placeholder --use values from database
+        ArrayList<Timestamp> showTimes=controller.getShowtimesPageData(order); //use values from database
         ShowtimesList = new JList<>(showTimes.toArray());
         
         ShowtimesList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
@@ -80,8 +79,7 @@ class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes
     {  
         String userValue = textField1.getText();//username from input        
           
-        if (ae.getSource().equals(b1)) {  //check if in database ---- this is a placeholder
-
+        if (ae.getSource().equals(b1)) {  //check if showtimes is in database
             order.setShowTime((Timestamp) ShowtimesList.getSelectedValue());
             SeatsPage page = new SeatsPage(controller,order);
               
@@ -96,7 +94,7 @@ class ShowtimesPage extends JFrame implements ActionListener //list of Showtimes
         }  
         else{  
             //show error message  
-            JOptionPane.showMessageDialog(new JFrame(), "please enter valid username and password", "INVALID USERNAME/PASSWORD", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "please enter valid showtime", "INVALID SHOWTIME", JOptionPane.ERROR_MESSAGE);
         }  
     } 
 }
