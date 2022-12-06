@@ -1,0 +1,99 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam classAttributeFontColor white
+
+Package Model <<Rectangle>>{
+show "{abstract}\nUser" fields
+show RegisteredUser fields
+show Movie fields
+show Theater fields
+show ShowRoom fields
+show ShowTime fields
+show Seat fields
+show Ticket fields
+show Payment fields
+
+show ShowRoom method
+
+
+Class "{abstract}\nUser"
+Class RegisteredUser
+Class Movie
+Class Theater
+Class ShowRoom
+Class ShowTime
+Class Seat
+Class Ticket
+Class Payment
+
+class "{abstract}\nUser" {
+    # email: String
+    # password: String
+    # userType: String
+    # paymentInfo: PaymentInfo
+}
+
+class RegisteredUser {
+}
+
+class Movie {
+    - id: int
+    - movieName: String
+    - dateOfAnnounce: Date
+    - duration: Time
+}
+
+class Theater {
+    - id: int
+    - name: String
+    - address: String
+}
+
+class ShowRoom {
+    - id: int
+    - theaterID: int
+    - roomNumber: int
+    - nextAvailableTime: Date
+
+    + void updateNextAvailableTime()
+}
+
+class Seat {
+    - row: int
+    - col: int
+    - roomID: int
+    - roomNum: int
+    - isEarlyRegistration: boolean
+    - isTaken: boolean
+}
+
+class ShowTime {
+    - time: Timestamp
+}
+
+class Payment {
+    - cardHolderName: String
+    - cardNumber: String
+    - cvv: int
+}
+
+class Ticket {
+    - movie: Movie
+    - theater: Theater
+    - showTime: ShowTime
+    - showRoom: ShowRoom
+    - seat: Seats
+    - payment: Payment
+}
+
+legend
+|= field |= method |=  |
+|  <img:http://s.plantuml.com/private-field.png>     |   <img:http://s.plantuml.com/private-method.png>     | private |
+|  <img:http://s.plantuml.com/protected-field.png>   |   <img:http://s.plantuml.com/protected-method.png>   | protected |
+|  <img:http://s.plantuml.com/package-private-field.png>     |   <img:http://s.plantuml.com/package-private-method.png>    | package private |
+|  <img:http://s.plantuml.com/public-field.png>     |   <img:http://s.plantuml.com/public-method.png>     | public |
+end legend
+@enduml
