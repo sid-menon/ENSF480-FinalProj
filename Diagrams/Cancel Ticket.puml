@@ -1,0 +1,13 @@
+@startuml
+start
+:User wants to cancel ticket 72 hours prior;
+
+:User receives credit;
+
+if () then ([ordinary])
+    :Pay 15% admin fee;
+else ([registered])
+endif
+
+stop
+@enduml

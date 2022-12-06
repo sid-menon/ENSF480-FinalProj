@@ -1,0 +1,20 @@
+@startuml
+start
+:User selects movie;
+
+:User selects theatre;
+
+:User selects showtime;
+
+:User selects seats;
+
+:User makes payment;
+
+:User receives receipt;
+
+if () then ([ordinary user])
+    :receive ticket in email;
+else ()
+endif
+stop
+@enduml

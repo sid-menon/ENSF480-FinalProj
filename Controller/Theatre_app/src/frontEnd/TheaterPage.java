@@ -1,4 +1,11 @@
 package frontEnd;
+/**
+ *        File Name: TheaterPage.java
+ *        Assignment: Term project
+ *        Lab section: B01
+ *        Completed by: Siddharth Menon and Chun-chun Huang
+ *        Submission Date: Dec 5 2022
+ */
 
 import controller.AppController;
 import controller.Order;
@@ -33,21 +40,12 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
         Box titleText = Box.createHorizontalBox();
         JLabel title = new JLabel("<html><span style='color: black;'>theater Availables</span></html>");
         title.setFont (title.getFont().deriveFont(32.0f));
-        //JLabel version = new JLabel("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Version 1.0<br>Created by Luke Carr</html>");
-        //JLabel slogan = new JLabel("<html>Full Potential<br>Minimal Knowledge</html>");
-        //titleText.add(version);
+        
         titleText.add(title);
-        //titleText.add(slogan);
         titleText.setAlignmentX(frame.getWidth() / 2);
 
-        //Box inputContent = Box.createHorizontalBox();
-        //JTextArea code = new JTextArea(35,65);
-        //code.setEditable(true);
-        //code.setBorder(null);
-        //inputContent.add(code);
 
         frame.add(titleText);
-        //frame.add(inputContent);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -56,7 +54,7 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
         theaterLabel.setText("Which theater Would you like to See?");      //set label value for textField1
 
         ArrayList<Theater> theaters=controller.getTheaterPageData(order.getMovie());
-        theaterList = new JList<>(theaters.toArray());
+        theaterList = new JList<>(theaters.toArray()); //create list of theaters
 
         
         theaterList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
@@ -78,7 +76,7 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
     {  
         String userValue = textField1.getText();//username from input        
           
-        if (ae.getSource().equals(b1)&&userValue.length() < 30) {  //check if in database ---- this is a placeholder
+        if (ae.getSource().equals(b1)&&userValue.length() < 30) {  //check if theater in database
 
             order.setTheater((Theater) theaterList.getSelectedValue());
             ShowtimesPage page = new ShowtimesPage(controller,order);
@@ -94,7 +92,7 @@ class TheaterPage extends JFrame implements ActionListener //list of Theater fro
         }  
         else{  
             //show error message  
-            JOptionPane.showMessageDialog(new JFrame(), "please enter valid username and password", "INVALID USERNAME/PASSWORD", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "please enter valid theater", "INVALID THEATER", JOptionPane.ERROR_MESSAGE);
         }  
     } 
 }
