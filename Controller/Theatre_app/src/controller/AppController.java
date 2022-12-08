@@ -95,6 +95,10 @@ public class AppController {
           if(!user.getUserType().equals("admin")) return;
           connection.arrangeShow(movie,theater,room);
      }
+     public void addMovie(MovieInfo movie){
+          if(!user.getUserType().equals("admin")) return;
+          connection.insertMovie(movie.getMovieName(),movie.getDuration());
+     }
 
 
 

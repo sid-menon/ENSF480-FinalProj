@@ -466,6 +466,18 @@ public class JDBC {
     }
 
 //    CRUD for movies table
+    public void insertMovie(String name,Time duration){
+        String str="INSERT INTO movies (name,duration) " +
+                "VALUES (?,?)";
+        try(PreparedStatement statement=connection.prepareStatement(str)){
+            statement.setString(1,name);
+            statement.setTime(2,duration);
+            System.out.println(statement.toString());
+            statement.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
     public MovieInfo getMovieByID(int id){
         String str="SELECT * FROM movies WHERE id=?";
         MovieInfo movieInfo=null;

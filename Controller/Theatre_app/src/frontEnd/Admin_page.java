@@ -13,7 +13,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Admin_page extends JFrame{
 
@@ -28,6 +30,7 @@ public class Admin_page extends JFrame{
     private JButton newRoom;
     private JList movieList;
     private JButton logOutButton;
+    private JButton addMovieButton;
 
 
     public Admin_page(AppController controller) {
@@ -149,12 +152,57 @@ public class Admin_page extends JFrame{
 
             }
         });
+        addMovieButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                JTextField nameField=new JTextField();
+                JTextField timeField=new JTextField();
+
+
+                String movieName = JOptionPane.showInputDialog(null,"movie name","Please enter the movie name",JOptionPane.OK_CANCEL_OPTION);
+                if(movieName!=null) {
+                    String lengthOfMovie = JOptionPane.showInputDialog(null, "duration", "Please enter the duration of the movie", JOptionPane.OK_CANCEL_OPTION);
+                    if(lengthOfMovie!=null){
+                        try {
+                            Time duration=Time.valueOf(lengthOfMovie+":00");
+                            MovieInfo movieInfo=new MovieInfo(0,movieName,new Date(),duration);
+                            controller.addMovie(movieInfo);
+                            updateMoviesList((DefaultListModel) movieList.getModel());
+                        }catch (NumberFormatException e){
+                            e.printStackTrace();
+                            JOptionPane.showMessageDialog(null,"Invalid input","error",JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+
+
+
+
+
+                    }
+                }
+            }
+        });
+    }
+
+    private long timeStrToMs(String time){
+        String[] timeArr=time.split(":");
+        long result=0;
+        try {
+            int hour = Integer.valueOf(timeArr[0]);
+            int minutes = Integer.valueOf(timeArr[1]);
+        }catch (ArithmeticException e){
+            e.printStackTrace();
+            return -1;
+        }
+        return result;
     }
 
 
 
     private void updateMoviesList(DefaultListModel dlm){
         ArrayList<MovieInfo> movies=controller.getAllMovies();
+        dlm.removeAllElements();
         for(MovieInfo movieInfo:movies){
             dlm.addElement(movieInfo);
         }
