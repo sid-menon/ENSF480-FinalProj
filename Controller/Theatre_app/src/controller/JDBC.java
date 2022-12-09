@@ -497,6 +497,17 @@ public class JDBC {
         return movieInfo;
     }
 
+    public void deleteMovieByID(int id){
+        String str="DELETE FROM movies WHERE id=?";
+        try(PreparedStatement statement= connection.prepareStatement(str)){
+            statement.setInt(1,id);
+            System.out.println(statement.toString());
+            statement.execute();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 //    CRUD for seats table
 
     public void setSeatOccupied(int roomID, int row, int col, boolean isTaken){

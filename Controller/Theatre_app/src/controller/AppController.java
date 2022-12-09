@@ -99,6 +99,10 @@ public class AppController {
           if(!user.getUserType().equals("admin")) return;
           connection.insertMovie(movie.getMovieName(),movie.getDuration());
      }
+     public void deleteMovie(MovieInfo movie){
+          if(!user.getUserType().equals("admin")) return;
+          connection.deleteMovieByID(movie.getId());
+     }
 
 
 

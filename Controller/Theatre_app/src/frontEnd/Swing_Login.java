@@ -57,6 +57,12 @@ public class Swing_Login extends JFrame{
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        guestBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               new MoviesPage(controller);
+            }
+        });
     }
 
     public static void main(String[] args) {

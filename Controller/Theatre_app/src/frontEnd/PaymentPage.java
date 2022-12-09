@@ -8,6 +8,7 @@ package frontEnd;
  */
 
 import controller.AppController;
+import controller.GuestUser;
 import controller.Order;
 import controller.PaymentInfo;
 
@@ -119,25 +120,31 @@ public class PaymentPage extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null,"user email already exists","fail to sign up",JOptionPane.ERROR_MESSAGE);
                 }
 
-            }
-
-            if(pageMode.equals(PaymentPageMode.TICKET_ORDER_USER)){
-//                insert the user into reservation
+            }else{
                 String confirmation="Movie: "+order.getMovie().getMovieName()+"\n" +
                         "Theater: "+order.getTheater().getName()+"\n" +
                         "ShowTime: "+order.getShowTime()+"\n" +
                         "Room #: "+order.getSeat().getRoomNum()+"\n" +
                         "Row: "+order.getSeat().getRow()+", "+"Column: "+order.getSeat().getCol()+"\n" +
                         "Do you wish to proceed with this ticket purchase?";
-
                 if(JOptionPane.showConfirmDialog(null,confirmation,"order confirmation",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
-                    controller.userReserve(order);
-                    dispose();
+
+                    if(pageMode.equals(PaymentPageMode.TICKET_ORDER_USER)){
+                        controller.userReserve(order);
+                    }
+
+                    else if(pageMode.equals(PaymentPageMode.TICKET_ORDER_VISITOR)){
+                        String email=JOptionPane.showInputDialog(null,"Please provide your email",JOptionPane.OK_CANCEL_OPTION);
+                        if(email!=null){
+                            controller.setUser(new GuestUser(email));
+                            controller.userReserve(order);
+                        }
+                    }
+
                 }
-//                change the seat status
-
-
             }
+
+
 
 
 

@@ -31,6 +31,7 @@ public class Admin_page extends JFrame{
     private JList movieList;
     private JButton logOutButton;
     private JButton addMovieButton;
+    private JButton removeMovieButton;
 
 
     public Admin_page(AppController controller) {
@@ -181,6 +182,14 @@ public class Admin_page extends JFrame{
 
                     }
                 }
+            }
+        });
+        removeMovieButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MovieInfo movieInfo=(MovieInfo) movieList.getSelectedValue();
+                if(movieInfo!=null) controller.deleteMovie(movieInfo);
+                updateMoviesList((DefaultListModel) movieList.getModel());
             }
         });
     }
